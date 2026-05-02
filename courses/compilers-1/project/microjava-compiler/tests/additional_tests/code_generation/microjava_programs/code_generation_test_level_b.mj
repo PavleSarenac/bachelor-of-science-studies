@@ -1,0 +1,407 @@
+program MicroJavaProgram
+
+{
+    void testIfElse()
+    {
+        if (5 < 10)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('1'); print(eol);
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('1'); print(eol);
+        }
+
+        if (5 >= 10)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('2'); print(eol);
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('2'); print(eol);
+        }
+
+        if (3 > 2 && 4 > 3 && 8 > 7 || 9 == 9)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('3'); print(eol);
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('3'); print(eol);
+        }
+
+        if (3 > 2 && 4 > 3 && 8 > 7 || 2 == 3)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('4'); print(eol);
+        }
+
+        if (2 == 2 || 2 == 3)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('5'); print(eol);
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('5'); print(eol);
+        }
+
+        if (2 == 5 || 2 == 2)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('6'); print(eol);
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('6'); print(eol);
+        }
+
+        if (222 == 333 || 2 == 4 && 4 == 5 || 2 == 2)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('7'); print(eol);
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('7'); print(eol);
+        }
+
+        if (2 == 3 && 2 == 2 || 3 == 3 && 3 == 3)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('8'); print('_'); print('1'); print(eol);
+            if (2 == 2)
+            {
+                if (3 == 3)
+                {
+                    if (4 == 9)
+                    {
+                        print('t'); print('h'); print('e'); print('n'); print('_'); print('8'); print('_'); print('4'); print(eol);
+                    }
+                    else
+                    {
+                        print('e'); print('l'); print('s'); print('e'); print('_'); print('8'); print('_'); print('4'); print(eol);
+                    }
+                }
+            }
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('8'); print('_'); print('1'); print(eol);
+        }
+
+        if (2 == 3 || 3 == 3 && 8 == 9)
+        {
+            print('t'); print('h'); print('e'); print('n'); print('_'); print('9'); print(eol);
+        }
+        else
+        {
+            print('e'); print('l'); print('s'); print('e'); print('_'); print('9'); print(eol);
+        }
+
+        print(eol);
+
+        // expected output:
+        // then_1
+        // else_2
+        // then_3
+        // then_4
+        // then_5
+        // then_6
+        // then_7
+        // then_8_1
+        // else_8_4
+        // else_9
+    }
+
+    void testDoWhileInfiniteLoop()
+        int i, j;
+    {
+        i = 0;
+        j = 0;
+        do
+        {
+            print(i);
+            print(eol);
+            do
+            {
+                j++;
+                if (j <= 4) continue;
+                print(j);
+                print(eol);
+                if (j >= 10) break;
+            }
+            while ();
+            i++;
+            if (i == 1) break;
+        }
+        while ();
+        print(eol);
+
+        // expected output:
+        // 0
+        // 5
+        // 6
+        // 7
+        // 8
+        // 9
+        // 10
+    }
+
+    void testDoWhileConditionLoop1()
+        int i;
+    {
+        i = 0;
+        do
+        {
+            print(i);
+            print(eol);
+            i++;
+        }
+        while (i <= 10 && i <= 9 || i <= 8);
+        print(eol);
+
+        // expected output:
+        // 0
+        // 1
+        // 2
+        // 3
+        // 4
+        // 5
+        // 6
+        // 7
+        // 8
+        // 9
+    }
+
+    void testDoWhileConditionLoop2()
+        int i, j, k;
+    {
+        i = 0;
+        j = 10;
+        k = 100;
+        do
+        {
+            print(i);
+            print(eol);
+            i++;
+            do
+            {
+                print(j);
+                print(eol);
+                j++;
+                do
+                {
+                    print(k);
+                    print(eol);
+                    k++;
+                }
+                while (k <= 103);
+            }
+            while (j <= 13);
+        }
+        while (i <= 3);
+        print(eol);
+
+        // expected output:
+        // 0
+        // 10
+        // 100
+        // 101
+        // 102
+        // 103
+        // 11
+        // 104
+        // 12
+        // 105
+        // 13
+        // 106
+        // 1
+        // 14
+        // 107
+        // 2
+        // 15
+        // 108
+        // 3
+        // 16
+        // 109
+    }
+
+    void testDoWhileConditionLoop3()
+        int i, j;
+    {
+        i = 0;
+        do
+        {
+            i++;
+            j = 0;
+            do
+            {
+                print('*');
+                j++;
+            }
+            while (j < 10);
+            print(eol);
+        }
+        while (i < 4);
+        print(eol);
+
+        // expected output:
+        // **********
+        // **********
+        // **********
+        // **********
+    }
+
+    void testDoWhileConditionLoop4()
+        int i;
+    {
+        i = 0;
+        do
+        {
+            print(i);
+            print(eol);
+        }
+        while (i <= 5, i++);
+        print(i);
+        print(eol);
+        print(eol);
+
+        // expected output:
+        // 0
+        // 1
+        // 2
+        // 3
+        // 4
+        // 5
+        // 6
+        // 6
+    }
+
+    void testDoWhileConditionLoop5()
+        int i, j;
+    {
+        i = 0;
+        do
+        {
+            if (i == 1) continue;
+            print('i'); print('1'); print(':'); print(' '); print(i); print(eol);
+            j = 0;
+            do
+            {
+                if (j == 1)
+                {
+                    j++;
+                    continue;
+                }
+                print('i'); print(','); print(' '); print('j'); print(':'); print(' '); print(i); print(','); print(' '); print(j); print(eol);
+            }
+            while (j < 3, j++);
+            if (i == 2) continue;
+            print('i'); print('2'); print(':'); print(' '); print(i); print(eol);
+        }
+        while (i < 3, i++);
+        print(eol);
+
+        // expected output:
+        // i1: 0
+        // i, j: 0, 0
+        // i, j: 0, 3
+        // i2: 0
+        // i1: 2
+        // i, j: 2, 0
+        // i, j: 2, 3
+        // i1: 3
+        // i, j: 3, 0
+        // i, j: 3, 3
+        // i2: 3
+    }
+
+    void testDoWhileConditionLoop6()
+        int i, j;
+    {
+        i = 0;
+        do
+        {
+            print('i'); print('1'); print(':'); print(' '); print(i); print(eol);
+            j = 0;
+            do
+            {
+                if (j == 2) break;
+                print('i'); print(','); print(' '); print('j'); print(':'); print(' '); print(i); print(','); print(' '); print(j); print(eol);
+                if (j == 3) break;
+            }
+            while (j < 3, j++);
+            if (i == 2) break;
+            print('i'); print('2'); print(':'); print(' '); print(i); print(eol);
+        }
+        while (i < 3, i++);
+        print(eol);
+
+        // expected output:
+        // i1: 0
+        // i, j: 0, 0
+        // i, j: 0, 1
+        // i2: 0
+        // i1: 1
+        // i, j: 1, 0
+        // i, j: 1, 1
+        // i2: 1
+        // i1: 2
+        // i, j: 2, 0
+        // i, j: 2, 1
+    }
+
+    int designatorMapDesignatorMethod1(int param1)
+    {
+        return param1;
+    }
+
+    int designatorMapDesignatorMethod2(int param1)
+    {
+        return param1 * 3;
+    }
+
+    void testDesignatorMapDesignator1()
+        int array1[];
+    {
+        array1 = new int[5];
+        array1[0] = 1;
+        array1[1] = 2;
+        array1[2] = 3;
+        array1[3] = 4;
+        array1[4] = 5;
+        print(designatorMapDesignatorMethod1 map array1);
+        print(eol);
+
+        // expected output:
+        // 15
+    }
+
+    void testDesignatorMapDesignator2()
+        int array1[];
+    {
+        array1 = new int[5];
+        array1[0] = 1;
+        array1[1] = 2;
+        array1[2] = 3;
+        array1[3] = 4;
+        array1[4] = 5;
+        print(designatorMapDesignatorMethod2 map array1);
+        print(eol);
+
+        // expected output:
+        // 45
+    }
+
+    void main()
+    {
+        testIfElse();
+
+        testDoWhileInfiniteLoop();
+        testDoWhileConditionLoop1();
+        testDoWhileConditionLoop2();
+        testDoWhileConditionLoop3();
+        testDoWhileConditionLoop4();
+        testDoWhileConditionLoop5();
+        testDoWhileConditionLoop6();
+
+        testDesignatorMapDesignator1();
+        testDesignatorMapDesignator2();
+    }
+}

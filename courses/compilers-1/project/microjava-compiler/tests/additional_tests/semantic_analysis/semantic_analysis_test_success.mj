@@ -1,0 +1,326 @@
+program SemanticAnalysisTestSuccess
+
+const int constant1 = 1, constant2 = 2;
+const int constant3 = 3, constant4 = 4;
+
+char var1, var2;
+bool var3;
+int var4, var5[];
+char var6[];
+
+class Class1 {}
+
+class Class2
+{
+    int attr1, attr2;
+    char attr3, attr4;
+    int attr5[], attr6[];
+}
+
+class Class3
+{
+    int attr1, attr2;
+}
+
+class Class4 extends Class3
+{
+    int attr3;
+}
+
+interface Interface1
+{
+    void interface1_method1();
+
+    int interface1_method2(int param1, int param2)
+    {
+        return param1 + param2;
+    }
+}
+
+class Class5 extends Interface1
+{
+    {
+        void interface1_method1()
+        {
+            print('a');
+        }
+    }
+}
+
+interface Interface2 { }
+
+interface Interface3 { }
+
+class Class6 extends Interface1
+{
+    {
+        void interface1_method1()
+        {
+            print('b');
+        }
+    }
+}
+
+class Class7 extends Interface2 { }
+
+class Class8 extends Interface3
+{
+    int attr5;
+}
+
+class Class9 extends Class8 { }
+
+class Class10 extends Class9 { }
+
+class Class11 extends Class10 { }
+
+class Class12
+{
+    Interface1 interface1_arr[];
+    Class8 arr4[];
+}
+
+class Class13
+{
+    Class12 attr3;
+    int arr3[];
+}
+
+class Class14
+{
+    Class13 attr2;
+    int arr2[];
+
+    {
+        int method14_1(int param1, Class14 obj14)
+            int var1;
+        {
+            return 42;
+        }
+    }
+}
+
+class Class15 extends Class14
+{
+    Class14 attr1;
+    int arr1[];
+    int var1;
+    Class15 obj15;
+
+    {
+        void method15_1(int param1, Class15 obj15)
+            int var1;
+        {
+            this.arr1 = new int[10];
+            arr1[0] = 100;
+            attr1 = new Class14();
+            this.var1 = 200;
+            var1 = 200;
+            this.obj15 = obj15;
+            this.obj15 = new Class15();
+            this.obj15.var1 = 50;
+        }
+    }
+}
+
+{
+    int method1(set param1, int param2, bool param3)
+        bool var1, var2;
+        Class2 class2;
+        int var3, var4;
+    {
+        var1 = true;
+        var2 = false;
+
+        var3 = 25;
+        var4 = 39;
+        print(var3 + var4);
+        print(var4 * var4);
+        print(var3 / var4);
+
+        return var3;
+    }
+
+    void method2(int param1, int param2)
+        int arr1[];
+        set arr2;
+        Class2 obj2;
+    {
+        arr1 = new int[10];
+        arr2 = new set[15];
+
+        arr1[0] = 1;
+
+        obj2 = new Class2();
+    }
+
+    void method3(bool param1, char param2)
+        int var1, var2;
+        char var3, var4;
+        bool var5, var6;
+        int arr1[], arr2[];
+        set set1, set2;
+        Class2 obj1, obj2;
+    {
+        var1 = 10;
+        var2 = 20;
+        var3 = 'a';
+        var4 = 'b';
+        var5 = true;
+        var6 = false;
+        arr1 = new int[5];
+        arr2 = new int[10];
+        set1 = new set[3];
+        set2 = new set[4];
+        obj1 = new Class2();
+        obj2 = new Class2();
+
+        if (var1 <= var2) {}
+        if (var3 > var4) {}
+        if (var5 < var6) {}
+        if (arr1 == arr2) {}
+        if (set1 != set2) {}
+        if (obj1 == obj2) {}
+    }
+
+    void method4()
+        int var1;
+        int arr1[];
+        bool var2;
+        char var3;
+    {
+        arr1 = new int[5];
+        read(var1);
+        read(arr1[0]);
+        read(var2);
+        read(var3);
+    }
+
+    int method5(int param1) { return param1 + 1; }
+
+    void method6()
+        int var1, arr1[];
+    {
+        var1 = method5 map arr1;
+        print(method5 map arr1);
+    }
+
+    void method7()
+        set set1, set2;
+    {
+        set1 = new set[5];
+        set2 = new set[10];
+        set1 = set2;
+        set1 = null;
+    }
+
+    void method8()
+        int var1, var2;
+        int arr1[];
+        Interface1 obj1;
+        Interface3 obj2;
+        Class8 obj3;
+    {
+        var1 = 10;
+        var2 = var1;
+        arr1 = null;
+        obj1 = new Class6();
+        obj2 = new Class8();
+        obj2 = new Class9();
+        obj2 = new Class10();
+        obj2 = new Class11();
+        obj3 = new Class11();
+    }
+
+    void method9()
+        int var1;
+    {
+        var1 = 0;
+        do
+        {
+            var1++;
+            print(var1);
+        }
+        while (var1 < 10);
+
+        var1 = 10;
+        do
+        {
+            var1++;
+            do
+            {
+                var1++;
+                do
+                {
+                    var1++;
+                    print(var1);
+                }
+                while (var1 < 2);
+            }
+            while (var1 < 3);
+        }
+        while (var1 < 5);
+    }
+
+    void method10()
+        Class15 obj1;
+        Interface1 obj2;
+    {
+        obj1 = new Class15();
+        obj1.attr1 = new Class14();
+        obj1.attr1.attr2 = new Class13();
+        obj1.attr1.attr2.attr3 = new Class12();
+        obj1.arr1 = new int[10];
+        obj1.arr1[0] = 42;
+        obj1.attr1.arr2 = new int[5];
+        obj1.attr1.arr2[0] = 100;
+        obj1.attr1.attr2.arr3 = new int[3];
+        obj1.attr1.attr2.arr3[0] = 200;
+        obj1.attr1.attr2.attr3.arr4 = new Class8[5];
+        obj1.attr1.attr2.attr3.arr4[3] = new Class11();
+        obj1.attr1.attr2.attr3.arr4[3].attr5 = 300;
+        obj1.attr1.attr2.attr3.arr4[2] = new Class10();
+
+        obj2 = new Class5();
+        obj2.interface1_method1();
+        obj2.interface1_method2(5, 10);
+    }
+
+    int method11(int param1, int param2)
+    {
+        return param1 + param2;
+    }
+
+    int method12(int param1, int param2, int param3)
+    {
+        return param1 * param2 - param3;
+    }
+
+    void method13(Interface3 obj) { }
+
+    void main()
+        char arr1[];
+        Interface3 obj1;
+    {
+        arr1 = new char[5];
+        arr1[0] = 'x';
+
+        method11(2, 5);
+        print(2);
+        ord('x');
+        method11(ord('x'), 2);
+        print(ord(arr1[0]));
+        method11(ord(arr1[0]), 2);
+        method11(ord(arr1[0]), ord(arr1[0]));
+        method12(method11(method11(ord(arr1[0]), ord(arr1[0])), method11(ord(arr1[0]), ord(arr1[0]))), method11(ord(arr1[0]), ord(arr1[0])), method11(ord(arr1[0]), ord(arr1[0])));
+
+        obj1 = new Class8();
+        method13(obj1);
+        obj1 = new Class9();
+        method13(obj1);
+        obj1 = new Class10();
+        method13(obj1);
+        obj1 = new Class11();
+        method13(obj1);
+    }
+}

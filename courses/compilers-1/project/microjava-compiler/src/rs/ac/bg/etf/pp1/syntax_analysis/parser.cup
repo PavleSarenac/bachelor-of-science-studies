@@ -1,0 +1,304 @@
+package rs.ac.bg.etf.pp1.syntax_analysis.generated;
+ 
+import java_cup.runtime.*;
+import org.apache.log4j.*;
+import rs.ac.bg.etf.pp1.syntax_analysis.generated.ast.*;
+ 
+parser code
+{:
+	private Logger logger = Logger.getLogger(getClass());
+	private boolean isErrorDetected = false;
+ 
+	public boolean isSyntaxAnalysisErrorDetected()
+	{
+		return isErrorDetected;
+	}
+	
+    public void report_error(String message, Object info)
+    {
+    	isErrorDetected = true;
+		int errorLineNumber = -1;
+
+		if (info instanceof Symbol)
+		{
+			errorLineNumber = ((Symbol)info).left;
+		}
+		else if (info instanceof Integer)
+		{
+			errorLineNumber = (int)info;
+		}
+
+		if (errorLineNumber == -1)
+		{
+			logger.error(message);
+		}
+		else
+		{
+			logger.error(message + " (line " + errorLineNumber + ").");
+		}
+    }
+    
+    public void syntax_error(Symbol cur_token)
+    {
+        report_error("Syntax error", cur_token);
+    }
+    
+    public void unrecovered_syntax_error(Symbol cur_token) throws java.lang.Exception
+    {
+        report_fatal_error("Unrecovered syntax error, parsing must be stopped", cur_token);
+    }
+    
+    public void report_fatal_error(String message, Object info) throws java.lang.Exception
+    {
+      done_parsing();
+      report_error(message, info);
+    }
+:}
+
+/* terminals */
+/* untyped terminals */
+terminal PROGRAM, BREAK, CLASS, ELSE, CONST, IF, NEW, PRINT, READ, RETURN, VOID, EXTENDS, CONTINUE, UNION, DO, WHILE, MAP, INTERFACE;
+terminal INCREMENT, DECREMENT, EQUALS, GREATER_THAN_OR_EQUAL, LESS_THAN_OR_EQUAL, LOGICAL_AND, LOGICAL_OR, NOT_EQUALS, PLUS, MINUS, MULTIPLY, DIVIDE, MODULO, GREATER_THAN, LESS_THAN, ASSIGN, SEMICOLON, COMMA, DOT, LEFT_PARENTHESES, RIGHT_PARENTHESES, LEFT_BRACKET, RIGHT_BRACKET, LEFT_BRACE, RIGHT_BRACE;
+
+/* typed terminals */
+terminal Integer NUMBER;
+terminal Boolean BOOLEAN;
+terminal char CHARACTER;
+terminal String IDENTIFICATOR;
+
+/* declarations of official nonterminals */
+/* untyped nonterminals */
+nonterminal ConstDecl, VarDecl, InterfaceDecl, MethodSignature, MethodDecl, FormPars, Type, Statement, DesignatorStatement, ActPars, Assignop, Relop, Addop, Mulop, Setop;
+
+/* typed nonterminals */
+nonterminal rs.etf.pp1.symboltable.concepts.Obj Program, Designator, Factor, Term, Expr, ClassDecl;
+nonterminal rs.etf.pp1.symboltable.concepts.Struct CondFact, CondTerm, Condition;
+
+/* declarations of my nonterminals */
+/* untyped nonterminals */
+nonterminal GlobalDeclaration, GlobalDeclarationList, OptionalGlobalDeclarationList;
+nonterminal ConstantAssignment, ConstantAssignmentList;
+nonterminal Variable, VariableList, FormalParameter, TypedFormalParameter, FormalParametersList, VarDeclList, OptionalVarDeclList;
+nonterminal ClassDefinition, ClassMethodsBlock, OptionalClassMethodsBlock, ClassAttribute, ClassAttributeList, ClassAttributeDecl, ClassAttributeDeclList, OptionalClassAttributeDeclList;
+nonterminal InterfaceName, InterfaceMethod, InterfaceMethodList, OptionalInterfaceMethodList;
+nonterminal MethodReturnType, OptionalFormPars;
+nonterminal MethodDeclList, OptionalMethodDeclList;
+nonterminal StatementList, OptionalStatementList, ThenStatementIndicator, NoElseStatementIndicator, ElseStatementIndicator;
+nonterminal DoKeyword, WhileKeyword, DoWhileNoConditionLeftParentheses, DoWhileRightParentheses, AfterDoWhileConditionNoDesignatorStatementIndicator, AfterDoWhileConditionWithDesignatorStatementIndicator, AfterDoWhileDesignatorStatementIndicator;
+nonterminal OptionalActPars, FunctionCall, FunctionCallRightParentheses;
+
+/* typed nonterminals */
+nonterminal rs.etf.pp1.symboltable.concepts.Obj ProgramName, Constant, MethodName;
+
+precedence left ELSE;
+
+/* implementations of official nonterminals */
+/* official nonterminal #1 */
+Program ::= (Program) PROGRAM ProgramName OptionalGlobalDeclarationList LEFT_BRACE OptionalMethodDeclList RIGHT_BRACE;
+
+/* official nonterminal #2 */
+ConstDecl ::= (ConstDecl) CONST Type ConstantAssignmentList SEMICOLON;
+
+/* official nonterminal #3 */
+VarDecl ::= (VarDecl) Type VariableList SEMICOLON;
+
+/* official nonterminal #4 */
+ClassDecl ::= (ClassDecl) CLASS ClassDefinition LEFT_BRACE OptionalClassAttributeDeclList OptionalClassMethodsBlock RIGHT_BRACE;
+
+/* official nonterminal #5 */
+InterfaceDecl ::= (InterfaceDecl) INTERFACE InterfaceName LEFT_BRACE OptionalInterfaceMethodList RIGHT_BRACE;
+
+/* official nonterminal #6 */
+MethodSignature ::= (MethodSignature) MethodReturnType MethodName LEFT_PARENTHESES OptionalFormPars RIGHT_PARENTHESES;
+
+/* official nonterminal #7 */
+MethodDecl ::= (MethodDecl) MethodSignature OptionalVarDeclList LEFT_BRACE OptionalStatementList RIGHT_BRACE;
+
+/* official nonterminal #8 */
+FormPars ::= (FormPars) FormalParametersList;
+
+/* official nonterminal #9 */
+Type ::= (Type) IDENTIFICATOR:typeNameString;
+
+/* official nonterminal #10 */
+Statement ::= (StatementDesignatorStatement) DesignatorStatement SEMICOLON
+            | (StatementError) error:s {: parser.report_error("Syntax error during assignment, performing recovery until the next semicolon.", sleft); :} SEMICOLON
+            | (StatementIf) IF LEFT_PARENTHESES Condition RIGHT_PARENTHESES ThenStatementIndicator Statement NoElseStatementIndicator
+            | (StatementIfElse) IF LEFT_PARENTHESES Condition RIGHT_PARENTHESES ThenStatementIndicator Statement ELSE ElseStatementIndicator Statement
+            | (StatementBreak) BREAK SEMICOLON
+            | (StatementContinue) CONTINUE SEMICOLON
+            | (StatementReturnWithoutExpr) RETURN SEMICOLON
+            | (StatementReturnWithExpr) RETURN Expr SEMICOLON
+            | (StatementRead) READ LEFT_PARENTHESES Designator RIGHT_PARENTHESES SEMICOLON
+            | (StatementPrintWithoutParameter) PRINT LEFT_PARENTHESES Expr RIGHT_PARENTHESES SEMICOLON
+            | (StatementPrintWithParameter) PRINT LEFT_PARENTHESES Expr COMMA NUMBER:numberParameter RIGHT_PARENTHESES SEMICOLON
+            | (StatementDoWhileNoCondition) DoKeyword Statement WhileKeyword DoWhileNoConditionLeftParentheses DoWhileRightParentheses SEMICOLON
+            | (StatementDoWhileCondition) DoKeyword Statement WhileKeyword LEFT_PARENTHESES Condition AfterDoWhileConditionNoDesignatorStatementIndicator DoWhileRightParentheses SEMICOLON
+            | (StatementDoWhileConditionAndDesignatorStatement) DoKeyword Statement WhileKeyword LEFT_PARENTHESES Condition AfterDoWhileConditionWithDesignatorStatementIndicator COMMA DesignatorStatement AfterDoWhileDesignatorStatementIndicator DoWhileRightParentheses SEMICOLON
+            | (StatementMultiple) LEFT_BRACE OptionalStatementList RIGHT_BRACE;
+
+/* official nonterminal #11 */
+DesignatorStatement ::= (DesignatorStatementAssignopExpr) Designator Assignop Expr
+                      | (DesignatorStatementFunctionCall) Designator FunctionCall
+                      | (DesignatorStatementIncrement) Designator INCREMENT
+                      | (DesignatorStatementDecrement) Designator DECREMENT
+                      | (DesignatorStatementSetop) Designator Assignop Designator Setop Designator;
+
+/* official nonterminal #12 */
+ActPars ::= (ActParsExpr) Expr
+          | (ActParsExprCommaExpr) ActPars COMMA Expr;
+
+/* official nonterminal #13 */
+Condition ::= (ConditionCondTerm) CondTerm
+            | (ConditionCondTermOrCondTerm) Condition LOGICAL_OR CondTerm
+            | (ConditionError) error:s {: parser.report_error("Syntax error during logical condition construction, performing recovery until the next right parentheses.", sleft); :};
+
+/* official nonterminal #14 */
+CondTerm ::= (CondTermCondFact) CondFact
+           | (CondTermCondFactAndCondFact) CondTerm LOGICAL_AND CondFact;
+
+/* official nonterminal #15 */
+CondFact ::= (CondFactExpr) Expr
+           | (CondFactExprRelopExpr) Expr Relop Expr;
+
+/* official nonterminal #16 */
+Expr ::= (ExprTerm) Term
+       | (ExprAddopMinusTerm) MINUS Term
+       | (ExprExprAddopTerm) Expr Addop Term
+       | (ExprDesignatorMapDesignator) Designator MAP Designator;
+
+/* official nonterminal #17 */
+Term ::= (TermFactor) Factor
+       | (TermTermMulopFactor) Term Mulop Factor;
+
+/* official nonterminal #18 */
+Factor ::= (FactorDesignator) Designator
+         | (FactorFunctionCall) Designator FunctionCall
+         | (FactorConstant) Constant
+         | (FactorCollectionInstantiation) NEW Type LEFT_BRACKET Expr RIGHT_BRACKET
+         | (FactorObjectInstantiation) NEW Type LEFT_PARENTHESES RIGHT_PARENTHESES
+         | (FactorExpr) LEFT_PARENTHESES Expr RIGHT_PARENTHESES;
+
+/* official nonterminal #19 */
+Designator ::= (DesignatorIdentificator) IDENTIFICATOR:designatorIdentificatorString
+             | (DesignatorArrayAccess) Designator LEFT_BRACKET Expr RIGHT_BRACKET
+             | (DesignatorUserTypeAccess) Designator DOT IDENTIFICATOR:memberNameString;
+
+/* official nonterminal #21 */
+Assignop ::= (Assignop) ASSIGN;
+
+/* official nonterminal #22 */
+Relop ::= (RelopEquals) EQUALS
+        | (RelopNotEquals) NOT_EQUALS
+        | (RelopGreaterThan) GREATER_THAN
+        | (RelopGreaterThanOrEqual) GREATER_THAN_OR_EQUAL
+        | (RelopLessThan) LESS_THAN
+        | (RelopLessThanOrEqual) LESS_THAN_OR_EQUAL;
+
+/* official nonterminal #23 */
+Addop ::= (AddopPlus) PLUS
+        | (AddopMinus) MINUS;
+
+/* official nonterminal #24 */
+Mulop ::= (MulopMultiply) MULTIPLY
+        | (MulopDivide) DIVIDE
+        | (MulopModulo) MODULO;
+
+/* official nonterminal #25 */
+Setop ::= (Setop) UNION;
+
+/* implementations of my nonterminals */
+ProgramName ::= (ProgramName) IDENTIFICATOR:programNameString;
+
+GlobalDeclaration ::= (GlobalDeclarationConstDecl) ConstDecl
+                    | (GlobalDeclarationVarDecl) VarDecl
+                    | (GlobalDeclarationClassDecl) ClassDecl
+                    | (GlobalDeclarationInterfaceDecl) InterfaceDecl;
+GlobalDeclarationList ::= (GlobalDeclarationListMultiple) GlobalDeclarationList GlobalDeclaration
+                        | (GlobalDeclarationListSingle) GlobalDeclaration;
+OptionalGlobalDeclarationList ::= (OptionalGlobalDeclarationListSingle) GlobalDeclarationList
+                                | (OptionalGlobalDeclarationListEpsilon) /* epsilon */;
+
+Constant ::= (ConstantNumber) NUMBER:value
+           | (ConstantCharacter) CHARACTER:value
+           | (ConstantBoolean) BOOLEAN:value;
+ConstantAssignment ::= (ConstantAssignment) IDENTIFICATOR:constantNameString ASSIGN Constant;
+ConstantAssignmentList ::= (ConstantAssignmentListMultiple) ConstantAssignment COMMA ConstantAssignmentList
+                         | (ConstantAssignmentListMultipleError) error:s {: parser.report_error("Syntax error during global constant declaration, performing recovery until the next comma.", sleft); :} COMMA ConstantAssignmentList
+                         | (ConstantAssignmentListSingle) ConstantAssignment
+                         | (ConstantAssignmentListSingleError) error:s {: parser.report_error("Syntax error during global constant declaration, performing recovery until the next semicolon.", sleft); :};
+
+Variable ::= (VariableSingle) IDENTIFICATOR:variableNameString
+           | (VariableArray) IDENTIFICATOR:variableNameString LEFT_BRACKET RIGHT_BRACKET;
+VariableList ::= (VariableListMultiple) Variable COMMA VariableList
+               | (VariableListMultipleError) error:s {: parser.report_error("Syntax error during global variable declaration, performing recovery until the next comma.", sleft); :} COMMA VariableList
+               | (VariableListSingle) Variable
+               | (VariableListSingleError) error:s {: parser.report_error("Syntax error during global variable declaration, performing recovery until the next semicolon.", sleft); :};
+VarDeclList ::= (VarDeclListMultiple) VarDeclList VarDecl
+              | (VarDeclListSingle) VarDecl;
+OptionalVarDeclList ::= (OptionalVarDeclListSingle) VarDeclList
+                      | (OptionalVarDeclListEpsilon) /* epsilon */;
+
+ClassDefinition ::= (ClassName) IDENTIFICATOR:classNameString
+                  | (ClassNameExtendsBaseTypeName) IDENTIFICATOR:classNameString EXTENDS IDENTIFICATOR:baseTypeString
+                  | (ClassNameExtendsBaseTypeNameError) IDENTIFICATOR:classNameString EXTENDS error:s {: parser.report_error("Syntax error during class extension declaration, performing recovery until the next left brace.", sleft); :};
+ClassAttribute ::= (ClassAttributeSingle) IDENTIFICATOR:classAttributeNameString
+                 | (ClassAttributeArray) IDENTIFICATOR:classAttributeNameString LEFT_BRACKET RIGHT_BRACKET;
+ClassAttributeList ::= (ClassAttributeListMultiple) ClassAttribute COMMA ClassAttributeList
+                     | (ClassAttributeListSingle) ClassAttribute;
+ClassAttributeDecl ::= (ClassAttributeDeclSingle) Type ClassAttributeList SEMICOLON
+                     | (ClassAttributeDeclErrorInvalidAttribute) Type error:s {: parser.report_error("Syntax error during class attribute declaration, performing recovery until the next semicolon.", sleft); :} SEMICOLON
+                     | (ClassAttributeDeclErrorMissingSemicolon) Type error;
+ClassAttributeDeclList ::= (ClassAttributeDeclListMultiple) ClassAttributeDeclList ClassAttributeDecl
+                         | (ClassAttributeDeclListSingle) ClassAttributeDecl;
+OptionalClassAttributeDeclList ::= (OptionalClassAttributeDeclListSingle) ClassAttributeDeclList
+                                 | (OptionalClassAttributeDeclListEpsilon) /* epsilon */;
+MethodDeclList ::= (MethodDeclListMultiple) MethodDeclList MethodDecl
+                 | (MethodDeclListSingle) MethodDecl;
+OptionalMethodDeclList ::= (OptionalMethodDeclListSingle) MethodDeclList
+                         | (OptionalMethodDeclListEpsilon) /* epsilon */;
+ClassMethodsBlock ::= (ClassMethodsBlock) LEFT_BRACE OptionalMethodDeclList RIGHT_BRACE;
+OptionalClassMethodsBlock ::= (OptionalClassMethodsBlockSingle) ClassMethodsBlock
+                            | (OptionalClassMethodsBlockEpsilon) /* epsilon */;
+
+InterfaceName ::= (InterfaceName) IDENTIFICATOR:interfaceNameString;
+InterfaceMethod ::= (InterfaceMethodMethodSignature) MethodSignature SEMICOLON
+                  | (InterfaceMethodMethodDecl) MethodDecl;
+InterfaceMethodList ::= (InterfaceMethodListMultiple) InterfaceMethodList InterfaceMethod
+                      | (InterfaceMethodListSingle) InterfaceMethod;
+OptionalInterfaceMethodList ::= (OptionalInterfaceMethodListSingle) InterfaceMethodList
+                              | (OptionalInterfaceMethodListEpsilon) /* epsilon */;
+
+MethodReturnType ::= (MethodReturnTypeType) Type
+                   | (MethodReturnTypeVoid) VOID;
+MethodName ::= (MethodName) IDENTIFICATOR:methodNameString;
+FormalParameter ::= (FormalParameterSingle) IDENTIFICATOR:formalParameterNameString
+                  | (FormalParameterArray) IDENTIFICATOR:formalParameterNameString LEFT_BRACKET RIGHT_BRACKET;
+TypedFormalParameter ::= (TypedFormalParameter) Type FormalParameter;
+FormalParametersList ::= (FormalParametersListMultiple) TypedFormalParameter COMMA FormalParametersList
+                       | (FormalParametersListMultipleError) error:s {: parser.report_error("Syntax error during function's formal parameter declaration, performing recovery until the next comma.", sleft); :} COMMA FormalParametersList
+                       | (FormalParametersListSingle) TypedFormalParameter
+                       | (FormalParametersListSingleError) error:s {: parser.report_error("Syntax error during function's formal parameter declaration, performing recovery until the next right parentheses.", sleft); :};
+OptionalFormPars ::= (OptionalFormParsSingle) FormPars
+                   | (OptionalFormParsEpsilon) /* epsilon */;
+
+StatementList ::= (StatementListMultiple) StatementList Statement
+                | (StatementListSingle) Statement;
+OptionalStatementList ::= (OptionalStatementListSingle) StatementList
+                        | (OptionalStatementListEpsilon) /* epsilon */;
+ThenStatementIndicator ::= (ThenStatementIndicator) /* epsilon */;
+NoElseStatementIndicator ::= (NoElseStatementIndicator) /* epsilon */;
+ElseStatementIndicator ::= (ElseStatementIndicator) /* epsilon */;
+
+DoKeyword ::= (DoKeyword) DO;
+WhileKeyword ::= (WhileKeyword) WHILE;
+DoWhileNoConditionLeftParentheses ::= (DoWhileNoConditionLeftParentheses) LEFT_PARENTHESES;
+DoWhileRightParentheses ::= (DoWhileRightParentheses) RIGHT_PARENTHESES;
+AfterDoWhileConditionNoDesignatorStatementIndicator ::= (AfterDoWhileConditionNoDesignatorStatementIndicator) /* epsilon */;
+AfterDoWhileConditionWithDesignatorStatementIndicator ::= (AfterDoWhileConditionWithDesignatorStatementIndicator) /* epsilon */;
+AfterDoWhileDesignatorStatementIndicator ::= (AfterDoWhileDesignatorStatementIndicator) /* epsilon */;
+
+OptionalActPars ::= (OptionalActParsSingle) ActPars
+                  | (OptionalActParsEpsilon) /* epsilon */;
+FunctionCall ::= (FunctionCall) LEFT_PARENTHESES OptionalActPars FunctionCallRightParentheses;
+FunctionCallRightParentheses ::= (FunctionCallRightParentheses) RIGHT_PARENTHESES;

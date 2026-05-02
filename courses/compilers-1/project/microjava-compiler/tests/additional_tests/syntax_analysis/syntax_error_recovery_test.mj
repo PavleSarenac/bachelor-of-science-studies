@@ -1,0 +1,67 @@
+program SyntaxErrorRecoveryTest
+
+// Syntax error during global variable declaration, performing recovery until the next comma.
+int var1, , var2;
+char var3, , var4, , , , , var5, var6;
+int var7/, var8;
+
+// Syntax error during global variable declaration, performing recovery until the next semicolon.
+int var9*;
+char var10-;
+
+// Syntax error during global constant declaration, performing recovery until the next comma.
+const int constVar1 = 1, , constVar2 = 2;
+const int constVar3 = 3, , constVar4 = 4, , , , , constVar5 = 5, constVar6 = 6;
+const int constVar7 =/ 7, constVar8 = 8;
+
+// Syntax error during global constant declaration, performing recovery until the next semicolon.
+const int constVar9 =* 9;
+const char constVar10 =- 'a';
+
+class Example1
+{
+    // Syntax error during class attribute declaration, performing recovery until the next left or right brace.
+    int attr1*
+}
+
+class Example2 {}
+
+// Syntax error during class extension declaration, performing recovery until the next left brace.
+class Example3 extends Example2-+*
+{
+    // Syntax error during class attribute declaration, performing recovery until the next semicolon.
+    int attr1, , attr2;
+    char attr3, , attr4, , , , , attr5, attr6;
+    int attr7/-;
+
+    // Syntax error during class attribute declaration, performing recovery until the next left or right brace.
+    int attr8+
+    {}
+}
+
+{
+    void main()
+    {
+        // Syntax error during logical condition construction, performing recovery until the next right parentheses.
+        do {} while (5 > 4, var1 = var2*/);
+        do {} while (5 > 4, var1()));
+
+        // Syntax error during assignment, performing recovery until the next semicolon.
+        var1 = 124*22/;
+        var2 = var4 map var5 map;
+        var3 = var3 union union var4;
+
+        // Syntax error during logical condition construction, performing recovery until the next right parentheses.
+        if (var1 >= var2*) {}
+        if (var2 &&) {}
+        if (|| var3) {}
+    }
+
+    // Syntax error during function's formal parameter declaration, performing recovery until the next comma.
+    void func1(int+-/ formPar1, int formPar2) {}
+    void func2(int, int formPar2) {}
+
+    // Syntax error during function's formal parameter declaration, performing recovery until the next right parentheses.
+    void func3(int formPar1, formPar2) {}
+    void func3(int formPar1, int) {}
+}

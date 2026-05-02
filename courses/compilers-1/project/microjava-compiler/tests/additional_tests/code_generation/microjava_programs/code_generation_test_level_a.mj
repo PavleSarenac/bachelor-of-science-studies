@@ -1,0 +1,212 @@
+program MicroJavaProgram
+
+int var1, var2[];
+const int const1 = 10, const2 = 20;
+
+{
+    void main()
+        int localVar1, localArr1[];
+        char localArr2[];
+        set localSet1, localSet2, localSet3;
+        int localArr3[];
+    {
+        print(15);  // 15
+        print(eol);  // '\n'
+        print(localVar1);  // 0
+        print(eol);  // '\n'
+        print(true); // 1
+        print(eol);  // '\n'
+        print('b'); // 'b'
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        print(15, 10);  // 15
+        print(eol);  // '\n'
+        print(true, 10);  // 1
+        print(eol);  // '\n'
+        print('b', 10);  // b
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        print(const1);  // 10
+        print(eol);  // '\n'
+        print(const2);  // 20
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        print(3 + 8 + const1 + const2);  // 41
+        print(eol);  // '\n'
+        print(3 + 8 + 5 + 4 + 9);  // 29
+        print(eol);  // '\n'
+        print(10 - 5);  // 5
+        print(eol);  // '\n'
+        print(-5 + 10);  // 5
+        print(eol);  // '\n'
+        print(-18 - 3 - 2 + 5 - 4);  // -22
+        print(eol);  // '\n'
+        print(-(3 + 8) - (-2 - 3) + (-1));  // -7
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        print(-2 * (-3) * (5));  // 30
+        print(eol);  // '\n'
+        print(const1 * const2);  // 200
+        print(eol);  // '\n'
+        print(const2 / const1);  // 2
+        print(eol);  // '\n'
+        print(10 / 3);  // 3
+        print(eol);  // '\n'
+        print(10 % 3);  // 1
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        print(10 / 3 + 10 % 3 + 2 * 3 + 3 * (2 + 2 * 1));  // 22
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        localVar1 = 1234;
+        print(localVar1);  // 1234
+        print(eol);  // '\n'
+        localVar1 = 5678;
+        print(localVar1);  // 5678
+        print(eol);  // '\n'
+        var1 = 222;
+        print(var1);  // 222
+        print(eol);  // '\n'
+        var1 = -35;
+        print(var1);  // -35
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        localArr1 = new int[10];
+        localArr2 = new char[20];
+        localArr1[4] = 156;
+        print(localArr1[4]);  // 156
+        print(eol);  // '\n'
+        localArr1[6] = 4;
+        print(localArr1[localArr1[6]]);  // 156
+        print(eol);  // '\n'
+        localArr2[17] = 'p';
+        print(localArr2[17]);  // 'p'
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        var1 = 700;
+        var1++;
+        print(var1);  // 701
+        print(eol);  // '\n'
+        localArr1[4]++;
+        print(localArr1[4]);  // 157
+        print(eol);  // '\n'
+        var1--;
+        print(var1);  // 700
+        print(eol);  // '\n'
+        localArr1[4]--;
+        print(localArr1[4]);  // 156
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        read(localVar1);
+        print(localVar1);  // 5
+        print(eol);  // '\n'
+        read(localArr1[6]);
+        print(localArr1[6]);  // 23
+        print(eol);  // '\n'
+        read(localArr2[3]);
+        print(localArr2[3]);  // 'z'
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        print(ord('a'));  // 97
+        print(eol);  // '\n'
+        print(ord('a') + ord('b'));  // 195
+        print(eol);  // '\n'
+        print(chr(97));  // 'a'
+        print(eol);  // '\n'
+        localArr2[4] = chr(99);
+        print(localArr2[4]);  // 'c'
+        print(eol);  // '\n'
+        print(len(localArr1));  // 10
+        print(eol);  // '\n'
+        print(len(localArr2));  // 20
+        ord(localArr2[4]);
+        chr(12);
+        len(localArr1);
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        localSet1 = new set[10];
+        print(localSet1);  // {}
+        print(eol);  // '\n'
+        add(localSet1, 5);
+        print(localSet1);  // {5}
+        print(eol);  // '\n'
+        add(localSet1, 10);
+        print(localSet1);  // {5, 10}
+        print(eol);  // '\n'
+        add(localSet1, 15);
+        print(localSet1);  // {5, 10, 15}
+        print(eol);  // '\n'
+        add(localSet1, 5);
+        print(localSet1);  // {5, 10, 15}
+        print(eol);  // '\n'
+        add(localSet1, 10);
+        print(localSet1);  // {5, 10, 15}
+        print(eol);  // '\n'
+        add(localSet1, 15);
+        print(localSet1);  // {5, 10, 15}
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        localArr3 = new int[5];
+        localArr3[0] = 5;
+        localArr3[1] = 20;
+        localArr3[2] = 25;
+        addAll(localSet1, localArr3);
+        print(localSet1);  // {5, 10, 15, 20, 25, 0}
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        localSet2 = new set[10];
+        add(localSet2, 3);
+        add(localSet2, 6);
+        add(localSet2, 9);
+        print(localSet1);  // {5, 10, 15, 20, 25, 0}
+        print(eol);  // '\n'
+        print(localSet2);  // {3, 6, 9}
+        print(eol);  // '\n'
+        localSet3 = new set[20];
+        localSet3 = localSet1 union localSet2;
+        print(localSet3);  // {5, 10, 15, 20, 25, 0, 3, 6, 9}
+        print(eol);  // '\n'
+        print(localSet1);  // {5, 10, 15, 20, 25, 0}
+        print(eol);  // '\n'
+        print(localSet2);  // {3, 6, 9}
+        print(eol);  // '\n'
+        print(localSet2, 10);  // {3, 6, 9}
+        print(eol);  // '\n'
+        print(eol);  // '\n'
+
+        localSet2 = localSet2 union localSet2;
+        print(localSet2);  // {3, 6, 9}
+        print(eol);  // '\n'
+        localSet2 = localSet1 union localSet2;
+        print(localSet2);  // {3, 6, 9, 5, 10, 15, 20, 25, 0}
+        print(eol);  // '\n'
+        localSet2 = localSet2 union localSet1;
+        print(localSet2);  // {3, 6, 9, 5, 10, 15, 20, 25, 0}
+        print(eol);  // '\n'
+        localSet1 = new set[5];
+        localSet3 = new set[5];
+        add(localSet1, 111);
+        add(localSet1, 333);
+        add(localSet3, 555);
+        add(localSet3, 777);
+        localSet2 = localSet1 union localSet3;
+        print(localSet2);  // {111, 333, 555, 777}
+        print(eol);  // '\n'
+
+        return;
+        var1++;
+    }
+}

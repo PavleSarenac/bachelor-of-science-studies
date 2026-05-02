@@ -1,0 +1,9 @@
+/.idea/
+/bin/
+/config/
+/logs/
+/out/
+/src/rs/ac/bg/etf/pp1/lexical_analysis/generated/
+/src/rs/ac/bg/etf/pp1/syntax_analysis/generated/
+/src/rs/ac/bg/etf/pp1/code_generation/generated/
+/MicroJava_Compiler.iml

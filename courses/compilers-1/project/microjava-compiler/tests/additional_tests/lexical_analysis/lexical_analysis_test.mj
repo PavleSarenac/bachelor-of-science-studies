@@ -1,0 +1,41 @@
+// following examples should be successfully tokenized
+
+// NUMBER
+1234
+4
+9521212
+
+// BOOLEAN
+true
+false
+
+// CHARACTER
+'~'
+'a'
+'!'
+' '
+
+// IDENTIFICATOR
+a1
+aaa11ffa_j
+ident_pascal_case
+identCamelCase
+
+// following examples should not be successfully tokenized
+
+1a
+12a
+12abc
+123a568
+1a568abc
+1a568abc568abc_^^*&
+1_4
+
+~
+#
+
+''
+'  '
+'                   '
+'aa'
+'fsafsn2131mfsa!'

@@ -1,0 +1,52 @@
+services:
+  barberbooker-database:
+    image: "mysql:8.0"
+    container_name: "barberbooker-database"
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "barberbooker"
+    healthcheck:
+      test: [ "CMD-SHELL", "for i in {1..5}; do mysqladmin ping -h localhost -u root -proot && sleep 5 || exit 1; done" ]
+      start_period: 30s
+      timeout: 40s
+      retries: 3
+    volumes:
+      - "barberbooker_database_data:/var/lib/mysql"
+      - "./barberbooker-database/initialization-scripts:/docker-entrypoint-initdb.d"
+    networks:
+      - "barberbooker-network"
+
+  barberbooker-server:
+    image: "barberbooker-server:latest"
+    build:
+      context: "../"
+      dockerfile: "docker/barberbooker-server/barberbooker-server.dockerfile"
+    container_name: "barberbooker-server"
+    ports:
+      - "8080:8080"
+    environment:
+      BARBERBOOKER_DATABASE_URL: "jdbc:mysql://barberbooker-database:3306/barberbooker"
+      BARBERBOOKER_DATABASE_USERNAME: ${BARBERBOOKER_DATABASE_USERNAME}
+      BARBERBOOKER_DATABASE_PASSWORD: ${BARBERBOOKER_DATABASE_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ISSUER: ${JWT_ISSUER}
+      JWT_AUDIENCE: ${JWT_AUDIENCE}
+      JWT_REALM: ${JWT_REALM}
+      GOOGLE_WEB_TOKEN_URI: ${GOOGLE_WEB_TOKEN_URI}
+      GOOGLE_WEB_CLIENT_ID: ${GOOGLE_WEB_CLIENT_ID}
+      GOOGLE_WEB_CLIENT_SECRET: ${GOOGLE_WEB_CLIENT_SECRET}
+      GOOGLE_WEB_REDIRECT_URI: ${GOOGLE_WEB_REDIRECT_URI}
+    depends_on:
+      barberbooker-database:
+        condition: service_healthy
+    networks:
+      - "barberbooker-network"
+
+volumes:
+  barberbooker_database_data:
+
+networks:
+  barberbooker-network:
+    driver: bridge

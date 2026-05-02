@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MicroJava_Compiler" default="generateParser" basedir=".">
+    <target name="clean">
+        <delete dir="bin"/>
+        <delete dir="src/rs/ac/bg/etf/pp1/lexical_analysis/generated/"/>
+        <delete dir="src/rs/ac/bg/etf/pp1/syntax_analysis/generated/"/>
+        <delete dir="src/rs/ac/bg/etf/pp1/code_generation/generated/"/>
+
+        <mkdir dir="bin"/>
+        <mkdir dir="src/rs/ac/bg/etf/pp1/lexical_analysis/generated/"/>
+        <mkdir dir="src/rs/ac/bg/etf/pp1/syntax_analysis/generated/"/>
+        <mkdir dir="src/rs/ac/bg/etf/pp1/code_generation/generated/"/>
+    </target>
+
+    <target name="generateLexer" depends="clean">
+        <java jar="lib/JFlex.jar" fork="true" failonerror="true">
+            <arg value="-d"/>
+            <arg value="src/rs/ac/bg/etf/pp1/lexical_analysis/generated"/>
+            <arg value="src/rs/ac/bg/etf/pp1/lexical_analysis/lexer.flex"/>
+        </java>
+    </target>
+
+    <target name="generateParser" depends="generateLexer">
+        <java jar="lib/cup_v10k.jar" dir="src" fork="true" failonerror="true">
+            <arg value="-destdir"/>
+            <arg value="rs/ac/bg/etf/pp1/syntax_analysis/generated"/>
+            <arg value="-ast"/>
+            <arg value="rs.ac.bg.etf.pp1.syntax_analysis.generated.ast"/>
+            <arg value="-parser"/>
+            <arg value="Parser"/>
+            <arg value="-buildtree"/>
+            <arg value="rs/ac/bg/etf/pp1/syntax_analysis/parser.cup"/>
+        </java>
+        <move file="src/rs/ac/bg/etf/pp1/syntax_analysis/parser_astbuild.cup"
+              tofile="src/rs/ac/bg/etf/pp1/syntax_analysis/generated/parser_astbuild.cup"/>
+    </target>
+
+    <target name="compile" depends="generateParser">
+        <javac destdir="bin" includeantruntime="false" debug="true" fork="true" failonerror="true">
+            <src path="src/rs/ac/bg/etf/pp1"/>
+            <classpath>
+                <fileset dir="lib" includes="*.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="generateJar" depends="compile">
+        <jar destfile="bin/microjava_compiler.jar" basedir="bin">
+            <zipgroupfileset dir="lib" includes="*.jar"/>
+            <manifest>
+                <attribute name="Main-Class" value="rs.ac.bg.etf.pp1.Compiler"/>
+            </manifest>
+        </jar>
+    </target>
+</project>

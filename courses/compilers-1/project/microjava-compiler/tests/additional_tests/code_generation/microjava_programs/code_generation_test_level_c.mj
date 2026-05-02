@@ -1,0 +1,263 @@
+program MicroJavaProgram
+
+class Class1
+{
+    int field1;
+    bool field2;
+    int field3[];
+    Class1 field4[];
+
+    {
+        void class_method_1()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('1'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('1');
+            print(eol);
+        }
+
+        void class_method_2()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('1'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('2');
+            print(eol);
+        }
+
+        void class_method_3()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('1'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('3'); print(' '); print('s'); print('t'); print('a'); print('r'); print('t');
+            print(eol);
+
+            this.field1 = 888;
+            print(this.field1);
+            print(eol);
+
+            field1 = 999;
+            print(field1);
+            print(eol);
+
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('1'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('3'); print(' '); print('e'); print('n'); print('d');
+            print(eol);
+        }
+    }
+}
+
+class Class2 extends Class1
+{
+    {
+        void class_method_1()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('2'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('1');
+            print(eol);
+        }
+
+        void class_method_3()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('2'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('3');
+            print(eol);
+        }
+    }
+}
+
+interface Interface1
+{
+    void interface_method_1();
+    void interface_method_2()
+    {
+        print('I'); print('n'); print('t'); print('e'); print('r'); print('f'); print('a'); print('c'); print('e'); print('1'); print('_');
+        print('i'); print('n'); print('t'); print('e'); print('r'); print('f'); print('a'); print('c'); print('e'); print('_');
+        print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+        print('2');
+        print(eol);
+    }
+}
+
+class Class3 extends Interface1
+{
+    {
+        void interface_method_1()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('3'); print('_');
+            print('i'); print('n'); print('t'); print('e'); print('r'); print('f'); print('a'); print('c'); print('e'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('1');
+            print(eol);
+        }
+
+        void class_method_4()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('3'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('4');
+            print(eol);
+        }
+    }
+}
+
+class Class4 extends Class3
+{
+    {
+        void class_method_5()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('4'); print('_');
+            print('c'); print('l'); print('a'); print('s'); print('s'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('5');
+            print(eol);
+        }
+    }
+}
+
+class Class5 extends Class2 { }
+
+class Class6 extends Interface1
+{
+    {
+        void interface_method_1()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('6'); print('_');
+            print('i'); print('n'); print('t'); print('e'); print('r'); print('f'); print('a'); print('c'); print('e'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('1');
+            print(eol);
+        }
+    }
+}
+
+class Class7 extends Interface1
+{
+    {
+        void interface_method_1()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('7'); print('_');
+            print('i'); print('n'); print('t'); print('e'); print('r'); print('f'); print('a'); print('c'); print('e'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('1');
+            print(eol);
+        }
+
+        void interface_method_2()
+        {
+            print('C'); print('l'); print('a'); print('s'); print('s'); print('7'); print('_');
+            print('i'); print('n'); print('t'); print('e'); print('r'); print('f'); print('a'); print('c'); print('e'); print('_');
+            print('m'); print('e'); print('t'); print('h'); print('o'); print('d'); print('_');
+            print('2');
+            print(eol);
+        }
+    }
+}
+
+int var1, var2;
+bool var3;
+
+{
+    void testObjectInstantiation()
+        Class1 obj11, obj12;
+    {
+        obj11 = new Class1();
+        obj12 = new Class1();
+    }
+
+    void testObjectBasicFieldAccessAndAssignment()
+        Class1 obj11;
+    {
+        obj11 = new Class1();
+
+        obj11.field1 = 5;
+        print(obj11.field1);
+        print(eol);
+
+        obj11.field2 = true;
+        print(obj11.field2);
+        print(eol);
+        print(eol);
+
+        // expected output:
+        // 5
+        // 1
+    }
+
+    void testObjectAdvancedFieldAccessAndAssignment()
+        Class1 obj11;
+    {
+        obj11 = new Class1();
+
+        obj11.field3 = new int[10];
+        obj11.field3[7] = 15;
+        print(obj11.field3[7]);
+        print(eol);
+
+        obj11.field4 = new Class1[5];
+        obj11.field4[3] = new Class1();
+        obj11.field4[3].field1 = 25;
+        print(obj11.field4[3].field1);
+        print(eol);
+
+        obj11.field4[4] = new Class1();
+        obj11.field4[4].field3 = new int[3];
+        obj11.field4[4].field3[2] = 444;
+        print(obj11.field4[4].field3[2]);
+        print(eol);
+
+        obj11.field4[4].field3[2]++;
+        print(obj11.field4[4].field3[2]);
+        print(eol);
+
+        obj11.field4[4].field3[2]--;
+        print(obj11.field4[4].field3[2]);
+        print(eol);
+
+        obj11.field1 = 200;
+        obj11.field1++;
+        print(obj11.field1);
+        print(eol);
+        print(eol);
+
+        // expected output:
+        // 15
+        // 25
+        // 444
+        // 445
+        // 444
+        // 201
+    }
+
+    void testObjectMethodCalls()
+        Class1 obj1;
+    {
+        obj1 = new Class1();
+        obj1.class_method_1();
+        obj1.class_method_2();
+        obj1.class_method_3();
+
+        obj1 = new Class2();
+        obj1.class_method_1();
+        obj1.class_method_2();
+    }
+
+    void main()
+    {
+        testObjectInstantiation();
+
+        testObjectBasicFieldAccessAndAssignment();
+        testObjectAdvancedFieldAccessAndAssignment();
+
+        testObjectMethodCalls();
+    }
+}
