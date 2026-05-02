@@ -1,0 +1,112 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram name="Page-1" id="RAE3WJMdnrf9ZIjkV9Ch">
+    <mxGraphModel dx="1042" dy="626" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-1" value="&lt;p style=&quot;margin:0px;margin-top:4px;margin-left:5px;text-align:left;&quot;&gt;&lt;font&gt;&lt;b&gt;sd&lt;/b&gt;&amp;nbsp;Процес пријаве у мобилној апликацији &lt;i&gt;BarberBooker&lt;/i&gt;&lt;/font&gt;&lt;/p&gt;" style="html=1;shape=mxgraph.sysml.package;overflow=fill;labelX=430.44;align=left;spacingLeft=5;verticalAlign=top;spacingTop=-3;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="140" y="190" width="1280" height="470" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-2" value="" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};participant=umlActor;fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="160" y="235" width="20" height="415" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-3" value="&lt;font&gt;:Клијент&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="350" y="235" width="160" height="415" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-10" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="tDrFgYuFkeFCbaqpVqjm-3" vertex="1">
+          <mxGeometry x="70" y="55" width="10" height="325" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-34" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="tDrFgYuFkeFCbaqpVqjm-3" vertex="1">
+          <mxGeometry x="80" y="315" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-35" value="&lt;i style=&quot;text-align: center;&quot;&gt;сачувајТокене&lt;/i&gt;&lt;span style=&quot;text-align: center;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;токенПриступа, токенОсвежења&lt;/span&gt;&lt;span style=&quot;text-align: center;&quot;&gt;)&lt;/span&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;fontSize=16;" parent="tDrFgYuFkeFCbaqpVqjm-3" target="tDrFgYuFkeFCbaqpVqjm-34" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="295" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="150" y="295" />
+              <mxPoint x="150" y="325" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-4" value="&lt;font&gt;:Сервер&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="820" y="230" width="120" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-20" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="tDrFgYuFkeFCbaqpVqjm-4" vertex="1">
+          <mxGeometry x="60" y="155" width="10" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-21" value="&lt;div style=&quot;text-align: center;&quot;&gt;&lt;span&gt;&lt;i&gt;генеришиТокене&lt;/i&gt;(): токенПриступа, токенОсвежења&lt;/span&gt;&lt;/div&gt;" style="html=1;align=left;spacingLeft=2;endArrow=block;rounded=0;edgeStyle=orthogonalEdgeStyle;curved=0;rounded=0;fontSize=16;" parent="tDrFgYuFkeFCbaqpVqjm-4" target="tDrFgYuFkeFCbaqpVqjm-20" edge="1">
+          <mxGeometry x="0.1111" relative="1" as="geometry">
+            <mxPoint x="60" y="130" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="60" y="135" />
+              <mxPoint x="95" y="135" />
+              <mxPoint x="95" y="165" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-5" value="&lt;font&gt;:База података&lt;/font&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="1230" y="230" width="160" height="420" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-17" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="tDrFgYuFkeFCbaqpVqjm-5" vertex="1">
+          <mxGeometry x="70" y="75" width="10" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-22" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="tDrFgYuFkeFCbaqpVqjm-5" vertex="1">
+          <mxGeometry x="70" y="210" width="10" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-11" value="&lt;font&gt;&lt;i&gt;пријавиСе&lt;/i&gt;(мејл, лозинка)&lt;/font&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fontSize=16;" parent="1" source="tDrFgYuFkeFCbaqpVqjm-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="300" as="sourcePoint" />
+            <mxPoint x="420" y="300.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-14" value="" style="html=1;points=[[0,0,0,0,5],[0,1,0,0,-5],[1,0,0,0,5],[1,1,0,0,-5]];perimeter=orthogonalPerimeter;outlineConnect=0;targetShapes=umlLifeline;portConstraint=eastwest;newEdgeStyle={&quot;curved&quot;:0,&quot;rounded&quot;:0};fontSize=16;" parent="1" vertex="1">
+          <mxGeometry x="870" y="295" width="10" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-15" value="&lt;i&gt;пријавиСе&lt;/i&gt;&lt;span&gt;(мејл, лозинка)&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fontSize=16;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="429.590909090909" y="310" as="sourcePoint" />
+            <mxPoint x="870" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-16" value="&lt;span&gt;токенПриступа, токенОсвежења&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;exitX=0;exitY=1;exitDx=0;exitDy=-5;fontSize=16;exitPerimeter=0;" parent="1" source="tDrFgYuFkeFCbaqpVqjm-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="429.8103448275863" y="499.9999999999999" as="targetPoint" />
+            <mxPoint x="820" y="500" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-18" value="&lt;i&gt;верификујКреденцијале&lt;/i&gt;&lt;span&gt;(мејл, лозинка)&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;entryX=0;entryY=0.273;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=16;" parent="1" target="tDrFgYuFkeFCbaqpVqjm-17" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880" y="320" as="sourcePoint" />
+            <mxPoint x="1180.5" y="320" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-19" value="&lt;span&gt;креденцијали исправни&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;fontSize=16;" parent="1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880.0007692307693" y="349.9999999999999" as="targetPoint" />
+            <mxPoint x="1300.27" y="349.9999999999999" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-23" value="&lt;i&gt;сачувајТокенОсвежења&lt;/i&gt;&lt;span&gt;(токенОсвежења)&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;fontSize=16;" parent="1" source="tDrFgYuFkeFCbaqpVqjm-14" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="890.0004347826087" y="447.19" as="sourcePoint" />
+            <mxPoint x="1300" y="447.19" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-24" value="&lt;font&gt;токенОсвежења&amp;nbsp;сачуван&lt;/font&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;fontSize=16;" parent="1" source="tDrFgYuFkeFCbaqpVqjm-22" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="880.0007692307693" y="480.0000000000001" as="targetPoint" />
+            <mxPoint x="1290.27" y="480.0000000000001" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="tDrFgYuFkeFCbaqpVqjm-37" value="&lt;span&gt;почетна страница апликације&lt;/span&gt;" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;endSize=8;curved=0;rounded=0;fontSize=16;" parent="1" target="tDrFgYuFkeFCbaqpVqjm-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="600" as="targetPoint" />
+            <mxPoint x="420" y="600" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

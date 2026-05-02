@@ -1,0 +1,31 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.2.5 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36" version="28.2.5">
+  <diagram id="0xQBCB8A72h9I78-pWv-" name="Page-1">
+    <mxGraphModel dx="534" dy="321" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="0trnWOhjhct4k5jw1QO1-1" value="Vertical Tree Layout" style="swimlane;startSize=20;horizontal=1;childLayout=treeLayout;horizontalTree=0;sortEdges=1;resizable=0;containerType=tree;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="80" width="320" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="0trnWOhjhct4k5jw1QO1-2" value="Root" style="whiteSpace=wrap;html=1;" vertex="1" parent="0trnWOhjhct4k5jw1QO1-1">
+          <mxGeometry x="110" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="0trnWOhjhct4k5jw1QO1-3" value="Child 1" style="whiteSpace=wrap;html=1;" vertex="1" parent="0trnWOhjhct4k5jw1QO1-1">
+          <mxGeometry x="20" y="130" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="0trnWOhjhct4k5jw1QO1-4" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;html=1;rounded=1;curved=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;startSize=6;endSize=6;" edge="1" parent="0trnWOhjhct4k5jw1QO1-1" source="0trnWOhjhct4k5jw1QO1-2" target="0trnWOhjhct4k5jw1QO1-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0trnWOhjhct4k5jw1QO1-5" value="Child 2" style="whiteSpace=wrap;html=1;" vertex="1" parent="0trnWOhjhct4k5jw1QO1-1">
+          <mxGeometry x="160" y="130" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="0trnWOhjhct4k5jw1QO1-6" value="" style="edgeStyle=elbowEdgeStyle;elbow=vertical;html=1;rounded=1;curved=0;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;startSize=6;endSize=6;" edge="1" parent="0trnWOhjhct4k5jw1QO1-1" source="0trnWOhjhct4k5jw1QO1-2" target="0trnWOhjhct4k5jw1QO1-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="0trnWOhjhct4k5jw1QO1-8" value="Child 2" style="whiteSpace=wrap;html=1;" vertex="1" parent="0trnWOhjhct4k5jw1QO1-1">
+          <mxGeometry x="40" y="150" width="140" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
