@@ -1,0 +1,13 @@
+.center-vertically {
+    display: flex;
+    align-items: center;
+}
+
+#prvaSlika {
+    /* height: 30vw; */
+    scale: 1.35;
+}
+
+#hero-text {
+    margin-top: 60px;
+}

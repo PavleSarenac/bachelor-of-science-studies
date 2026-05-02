@@ -1,0 +1,26 @@
+.table-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    height: 100vh;
+    background-color: black;
+}
+
+#game-table {
+    border: 2px solid white;
+}
+
+#score-row {
+    color: white;
+    margin-bottom: 4vh;
+    padding-top: 4vh;
+}
+
+#score-column {
+    display: flex;
+    align-items: center;
+}

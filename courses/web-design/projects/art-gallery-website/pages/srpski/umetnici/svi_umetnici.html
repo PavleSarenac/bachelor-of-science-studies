@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Галерија - Уметници</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="../../../assets/img/logo.jpg" rel="icon">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600;1,700&family=Amatic+SC:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="../../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../../assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="../../../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="../../../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="../../../assets/css/main.css" rel="stylesheet">
+    <link href="../../../assets/css/index.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: Yummy
+  * Updated: May 30 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <a href="../../../index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+                <!-- Uncomment the line below if you also wish to use an image logo -->
+                <img class="rounded-circle" src="../../../assets/img/logo.jpg" alt="">
+                <h1>Галерија</h1>
+            </a>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li class="dropdown"><a href="../../../index.html"><span>Почетна</span> <i
+                                class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                            <li><a id="deoIndexaPostavke" href="#novePostavke">Нове поставке</a></li>
+                            <li><a id="deoIndexaUmetnici" href="#noviUmetnici">Нови уметници</a></li>
+                            <li><a id="deoIndexaPonude" href="#najnovijePonude">Најновије понуде</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="../umetnine/sve_umetnine.html"><span>Уметнине</span> <i
+                                class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                            <li class="dropdown"><a href="../umetnine/slike/sve_slike.html"><span>Слике</span> <i
+                                        class="bi bi-chevron-down dropdown-indicator"></i></a>
+                                <ul>
+                                    <li><a href="../umetnine/slike/poljubac.html">Пољубац</a></li>
+                                    <li><a href="../umetnine/slike/mona_liza.html">Мона Лиза</a></li>
+                                    <li><a href="../umetnine/slike/tajna_vecera.html">Тајна вечера</a></li>
+                                    <li><a href="../umetnine/slike/seoba_srba.html">Сеоба Срба</a></li>
+                                    <li><a href="../umetnine/slike/suncokreti.html">Сунцокрети</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a
+                                    href="../umetnine/skulpture/sve_skulpture.html"><span>Скулптуре</span>
+                                    <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                                <ul>
+                                    <li><a href="../umetnine/skulpture/david.html">Давид</a></li>
+                                    <li><a href="../umetnine/skulpture/mislilac.html">Мислилац</a></li>
+                                    <li><a href="../umetnine/skulpture/kip_slobode.html">Кип слободе</a>
+                                    </li>
+                                    <li><a href="../umetnine/skulpture/mala_sirena.html">Мала Серена</a>
+                                    </li>
+                                    <li><a href="../umetnine/skulpture/velika_sfinga.html">Велика Сфинга</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown"><a
+                                    href="../umetnine/ostale_umetnine/sve_ostale_umetnine.html"><span>Остале
+                                        уметнине</span>
+                                    <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                                <ul>
+                                    <li><a href="../umetnine/ostale_umetnine/bekstvo_iz_sosenka.html">Бекство
+                                            из Шошенка</a>
+                                    </li>
+                                    <li><a href="../umetnine/ostale_umetnine/kum.html">Кум</a></li>
+                                    <li><a href="../umetnine/ostale_umetnine/12_ljutih_muskaraca.html">12
+                                            Љутих Мушкараца</a>
+                                    </li>
+                                    <li><a href="../umetnine/ostale_umetnine/prestiz.html">Престиж</a></li>
+                                    <li><a href="../umetnine/ostale_umetnine/americka_lepota.html">Америчка
+                                            лепота</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="./svi_umetnici.html">Уметници</a></li>
+                    <li><a href="../ostale_stranice/moj_nalog.html">Мој налог</a></li>
+                    <li><a href="../ostale_stranice/o_nama.html">О нама</a></li>
+                    <li class="dropdown"><a href=""><span>Језик</span> <i
+                                class="bi bi-chevron-down dropdown-indicator"></i></a>
+                        <ul>
+                            <li><a href="./svi_umetnici.html">Српски</a></li>
+                            <li><a href="../../engleski/umetnici/svi_umetnici.html">Енглески</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav><!-- .navbar -->
+
+            <!-- <a class="btn-book-a-table" href="#book-a-table">Book a Table</a> -->
+            <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+            <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
+
+        </div>
+    </header><!-- End Header -->
+
+    <main id="main">
+
+        <!-- ======= Breadcrumbs ======= -->
+        <div class="breadcrumbs">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span></span>
+                    <ol id="breadcrumbs-list">
+                        <li>Уметници</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- End Breadcrumbs -->
+
+        <br><br>
+
+
+        <br><br>
+
+	<!-- ======= Chefs Section ======= -->
+    <section id="chefs" class="chefs section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Уметници</h2>
+          <p><span>Уметници</span> у Нашој Галерији</p>
+        </div>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/gustav_klimt.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Густав Климт</h4>
+                <span>Сликар</span>
+                <p>
+					Густав Климт (14. јул 1862 – 6. фебруар 1918) био је аустријски симболиста Сликар и један од најистакнутијих чланова Виенског Сецесионистичког покрета.
+					Климт је познат по својим сликама, муралама, скицама и другим објектима уметности. Примарна тема Климта било је женско тело, а његови радови су обележени отвореном еротиком.
+					Међу својим фигуративним радовима, који укључују алегорије и портрете, он је сликао пејзаже.
+					Међу уметницима Виенског Сецесионистичког покрета, Климт је највише био под утицајем јапанске уметности и њених метода.
+				</p>
+              </div>
+            </div>
+          </div><!-- End Chefs Section -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/ogist_roden.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Огист Роден</h4>
+                <span>Вајар</span>
+                <p>
+					François Auguste René Rodin (12. новембар 1840 – 17. новембар 1917) био је француски Вајар, опште сматран оснивачем модерне вајарске уметности.
+					Он је школован традиционално и имао је приступ занатском раду. Роден је имао јединствену способност да моделира комплексну, турбулентну и дубоко джепасту површину у глини.
+					Познат је по таквим скулптурама као што су Мислилац, Споменик Балзаку, Пољубац, Буржоа из Калеа и Врата пакла.
+				</p>
+				</div>
+            </div>
+          </div><!-- End Chefs Section -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/paja_jovanovic.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Паја Јовановић</h4>
+                <span>Сликар</span>
+                <p>
+					Павле "Паја" Јовановић (16. јун 1859 – 30. новембар 1957) био је српски реалистички Сликар који је насликао више од 1.100 дела укључујући: [1]  Ранjени Црногорац (1882), Украшавање невесте (1886), Таковски устанак (1894), Сеобе Срба (1896) и Проглашење Душановог законика (1900). Као један од најбољих европских Сликара оријенталних сцена, Паја крајем 19. века се окренуо сликању историјских догађаја из српске историје.
+				</p>
+			  </div>
+		    </div>
+		  </div>
+
+		  <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/van_gog.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Винсент ван Гог</h4>
+                <span>Сликар</span>
+                <p>
+					Винсент Вилем ван Гог (30. март 1853 – 29. јул 1890) био је холандски постимпресионистички сликар који је постхумно постао један од најпознатијих и најутецајнијих ликова у западној уметничкој историји. У периоду од 10 година, он је направио око 2.100 уметничких дела, укључујући око 860 уљаних слика, већина којих датира из последње две године његовог живота. Они укључују пејзаже, натюрморте, портрете и аутопортрете, и карактерисани су болдним бојама и драматичним, импулсивним и експресивним пенкалом који су допринели основама модерне уметности. Није комерцијално успео у својој каријери, борио се са тешком депресијом и Серомаштвом, што је на крају довело до његовог самоубиства у тридесет седмој години.
+				</p>
+			</div>
+            </div>
+          </div><!-- Крај члана кувара -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/leonardo_da_vinci.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Леонардо да Винчи</h4>
+                <span>Сликар, Цртач, Инжењер, Научник, Теоретичар, Вајар и Архитекта</span>
+                <p>
+					Леонардо ди сер Пиеро да Винчи (15. април 1452 – 2. маj 1519) био је италиjански полимат Високог Ренесанса коjи je био активан као сликар, цртач, инжењер, научник, теоретичар, вајар и архитекта. Док је његова слава иницијално почивала на његовим достигнућима као сликара, он је такође постао познат по своjим свескама, у коjима je правио цртеже и белешке о различитим предметима, укључуjући анатомиjу, астрономиjу, ботанику, картографиjу, сликарство и палеонтологиjу. Леонардо се широко сматра гениjем коjи je олицетворио Ренесансни хуманистички идеал, а његови колективни радови чине допринос касниjим генерациjама уметника коjи се могу упоредити само са оном његовог млађег савременика, Микеланђела
+				</p>
+			</div>
+            </div>
+          </div><!-- Крај члана кувара -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/michelangelo.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Микеланђело Буонароти</h4>
+                <span>Вајар, Сликар, Архитекта</span>
+                <p>
+					Микеланђело ди Лодовико Буонароти Симони (6. март 1475 – 18. фебруар 1564), познат као Микеланђело, био је италијански вајар, сликар, архитект и песник Високог Ренесанса. Рођен у Републици Фиренца, његов рад је био инспирисан моделима из класичне антике и имао је трајан утицај на западну уметност. Микеланђелове креативне способности и мајсторство у разним уметничким аренама га дефинишу као архетипског Ренесансног човека, заједно са његовим ривалом и старијим савремеником, Леонардом да Винчијем. Због огромне количине сачуване кореспонденције, скетчева и сећања, Микеланђело је један од најбоље документованих уметника 16. века. Хвален од стране савремених биографа као најспособнији уметник свог доба.
+				</p>
+			  </div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/gustave_eiffel.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Гистав Ајфел</h4>
+                <span>Инжењер</span>
+                <p>
+					Александар Густав Еифел (15. децембар 1832 – 27. децембар 1923) био је француски грађевински инжењер. Дипломирани студент Екол Сентрал дес Арт ет Мануфактурес, стекао је име због разних мостова за француску железничку мрежу, најпознатијег Гарабит виадукта. Најпознатији је по светски познатом Еифеловом кулу, коју је дизајнирао његова компанија и изградила за Универзалну изложбу 1889. године у Паризу, и по свом доприносу изградњи Кипа слободе у Њујорку. Након пензионисања из инжењерства, Еифел се фокуСерао на истраживање метеорологије и аеродинамике, дајући значајне доприносе у обема областима.
+				</p>
+			</div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/edvard_eriksen.jpg" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Едвард Ериксен</h4>
+                <span>Вајар</span>
+                <p>
+					Ериксенов наjпознатиjи рад jест бронзанa статуa Малe русалкe (Дет Лиллe Хавфруe). У 1909. години, Jакоб Кристиjан Jакобсен, оснивач пиварe Карлсберг, поручio je oвo делo кaо поклон Градy Копенхагeнy. Поставлjeна je 23. августa 1913. годинe нa обaлu промeнаде Лaнгeлиниje у лукy стaрoг пристaништa Нихaвн. Двe рaзличитe жeне служилe су као модeли зa крeaциjу статуe. Ериксен je користио своjу жeну, Елинe Ериксен, као модeл зa тeло статуe и глумицу Елeн Прајс као модeл зa главу русалкe.
+				</p>
+			</div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/ancient_egyptians.jpeg" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Стари Египћани</h4>
+                <span>Цивилизација</span>
+                <p>
+					Староегипатска уметност је била превашодно функционална и симболичка, служећи религиозним или политичким циљевима. Пратила је строга правила пропорције, перспективе и боје која су имала за циљ да представе идеално а не реалистично. Најпознатији примери староегипатске уметности су пирамиде, које су биле монументалне гробнице за фараоне и њихове породице; сфинксови, који су биле статуе лавова са људским главама које су чувале храмове и гробнице; и зидне слике и скулптуре које су украшавале храмове и гробнице сценама богова, фараона и свакодневног живота.
+				</p>
+			</div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/sydney_loomet.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Сидни Лумет</h4>
+                <span>Филмски стваралац</span>
+                <p>
+					Сидни Артур Лумет (25. јун 1924 – 9. април 2011) био је амерички филмски режисер. Лумет je почeo свoju кaриjeру у позоришту и телевизiji, прe нeго што je прешao на филм где je стекao репутациjу за правljeњe рeaлистичних и грити Нью Йорк драмa коjе су сe фокуСералe на раднu класu, таклилe социjaлнe неправдe и честo испитивалe aуторитет. Режирaо je 52 игранa филма између 1957. и 2007. Лумет je честo идентификован као дeo таласa Новог Холивудa филмских режисера као што су Мартин Скорсезе, Роберт Алтман и Вуди Ален. Номинован за пет Оскара, добио je Академски почасни наградu у 2004.
+				</p>
+              </div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/francis_ford_coppola.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Френсис Форд Копола</h4>
+                <span>Филмски режисер, Продуцент, и Текстописац</span>
+                <p>
+					Францис Форд Копола (рођен 7. априла 1939) je aмерички филмски режисер, продуцент и сценарист. Сматра се jедним од великих ликова Новог Холивудског покрета филмског стваралаштва из 1960-их и 1970-их. Копола je добитник пет Оскара, шест Златних глобуса, двa Палмес д’Ор-a и Британске академске награде за филм (БАФТА).
+				</p>
+              </div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/frank_darabont.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Френк Дарабонт</h4>
+                <span>Филмски режисер, Текстописац и Продуцент</span>
+                <p>
+					Френк Арпад Дарабонт (рођен 28. јануара 1959) je француско-рођени амерички филмски режисер, сценариста и продуцент. Номинован je за три Оскара и Златни глобус. У раноj кариjери, био je примарно сценариста за такве хорор филмове као што су A Nightmare on Elm Street 3: Dream Warriors (1987), The Blob (1988) и The Fly II (1989). Као режисер, познат je по своjим филмским адаптациjама новела и романа Стивена Кинга, као што су The Shawshank Redemption (1994), The Green Mile (1999) и The Mist (2007).
+				</p>
+              </div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/cristopher_nolan.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Кристофер Нолан</h4>
+                <span>Филмски стваралац</span>
+                <p>
+					Кристофер Едвард Нолан CBE (рођен 30. јула 1970) je британско-амерички филмски стваралац. Познат по своjим Холивудским блокбастерима са сложеним причама, Нолан се сматра водећим филмским стваралацем 21. века. Његови филмови су зарадили 5 милијарди долара широм света. Добитник многих признања, номинован je за пет Оскара, пет БАФТА награда и шест Златних глобуса. Године 2015. био je наведен као jедан од 100 наjутецаjниjих ljudи у свету од стране Time-a, а 2019. године je именован Командиром Редa Британског Империja због свог доприносa филму.
+				</p>
+              </div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="chef-member">
+              <div class="member-img">
+                <img src="../../../assets/img/umetnici/sam_mendes.jfif" class="img-fluid" alt="">
+                <div class="social">
+                  
+                  
+                  <a class="gen-pdf" href="#"><i class="bi bi-file-pdf"></i><span> Сва Дела</span></a>
+                  
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Сем Мендес</h4>
+                <span>Филмски и Позоришни Режисер, Продуцент, и Текстописац</span>
+                <p>
+					Сер Самуел Александер Мендес CBE (рођен 1. августa 1965[1]) je британски филмски и позоришни режисер, продуцент и сценарист. Године 2000. Мендес je именован CBE због своjих услугa драми, а он je постao витез у Листи новогодишњих чaсти 2020. годинe. Истe годинe, добиo je Награду Шекспир од Фондациje Алфред Тепфер у Хамбургу, Немачка. Године 2005. добиo je награду за животно дело од Директорског гилда Велике Британиje. Године 2008. The Daily Telegraph гa je рангирaо кaо брoй 15 у њиховoj листи “100 наjмoћниjих ljudи у британскоj култури”.
+				</p>
+              </div>
+            </div>
+          </div><!-- End Chefs Member -->
+
+        </div>
+
+      </div>
+	
+	</section><!-- End Chefs Section -->
+
+
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+
+        <div class="container">
+            <div class="row text-center">
+
+                <div class="col-sm-12 footer-links">
+                    <h4>Пратите наш рад и на друштвеним мрежама</h4>
+                    <div class="social-links justify-content-center d-flex">
+                        <a target="_blank" href="https://twitter.com/?lang=sr" class="twitter"><i
+                                class="bi bi-twitter"></i></a>
+                        <a target="_blank" href="https://sr-rs.facebook.com/" class="facebook"><i
+                                class="bi bi-facebook"></i></a>
+                        <a target="_blank" href="https://www.instagram.com/" class="instagram"><i
+                                class="bi bi-instagram"></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/feed/" class="linkedin"><i
+                                class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright 2023, <strong><span>Александар Раденковић и Павле Шаренац, Одсек за софтверско
+                        инжењерство Електротехничког факултета Универзитета у Београду</span></strong>
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+
+    </footer><!-- End Footer -->
+    <!-- End Footer -->
+
+    <a href="#" class="scroll-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <div id="preloader"></div>
+
+    <!-- Vendor JS Files -->
+    <script src="../../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../assets/vendor/aos/aos.js"></script>
+    <script src="../../../assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../../../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../../../assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="../../../assets/js/main.js"></script>
+    <!-- jQuery -->
+    <script src="../../../assets/vendor/jquery/jquery-3.7.0.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+    <script src="../../../assets/js/generate_artists_db_serbian.js"></script>
+    <script src="../../../assets/js/all_artists.js"></script>
+
+</body>
+
+</html>

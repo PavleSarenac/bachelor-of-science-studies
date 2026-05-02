@@ -1,0 +1,58 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    height: 100vh;
+}
+
+#whole-page {
+    background-color: black;
+}
+
+.text-main {
+    text-align: left;
+    color: white;
+}
+
+.main-element {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+}
+
+.form-range::-webkit-slider-thumb {
+    background-color: #05f1f9;
+}
+
+.form-range::-moz-range-thumb {
+    background-color: #05f1f9;
+}
+
+.form-range::-ms-thumb {
+    background-color: #05f1f9;
+}
+
+
+.form-range::-webkit-slider-runnable-track {
+    background-color: white;
+}
+
+.form-range::-moz-range-track {
+    background-color: white;
+}
+
+.form-range::-ms-track {
+    background-color: white;
+}
+
+
+.form-range::-webkit-slider-thumb:active {
+    background-color: #05f1f9;
+}
+
+.form-range::-moz-range-thumb:active {
+    background-color: #05f1f9;
+}
+
+.form-range::-ms-thumb:active {
+    background-color: #05f1f9;
+}

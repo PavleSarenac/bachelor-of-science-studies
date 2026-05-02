@@ -1,0 +1,13 @@
+.menu-item {
+	display: none;
+}
+
+.item-active {
+	display: block;
+}
+
+#searchbar-wrapper {
+	margin-top: 25px;
+	width: 365px;
+	display: inline-block;
+}

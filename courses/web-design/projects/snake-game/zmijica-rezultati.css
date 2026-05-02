@@ -1,0 +1,27 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    height: 100vh;
+    color: white;
+    background-color: black;
+}
+
+th {
+    font-style: italic;
+}
+
+#homeButton {
+    display: flex;
+    justify-content: center;
+}
+
+#leaderboard {
+    padding-top: 2vh;
+}
+
+#tableRow {
+    margin-bottom: 5vh;
+}
+
+#footer {
+    margin-top: 5vh;
+}
