@@ -1,0 +1,58 @@
+[{
+  "_id": {
+    "$oid": "65cba72081997f9e86e6598a"
+  },
+  "subjects": [
+    "Mathematics",
+    "Physics",
+    "Chemistry",
+    "Informatics",
+    "Programming",
+    "Serbian Language and Literature",
+    "English Language",
+    "German Language",
+    "Italian Language",
+    "French Language",
+    "Spanish Language",
+    "Latin Language",
+    "Biology",
+    "History",
+    "Geography",
+    "World Around Us",
+    "Astrophysics",
+    "Astronomy",
+    "Electrical Engineering",
+    "Ecology",
+    "Sports Geography",
+    "Economy",
+    "Finance",
+    "Macroeconomy"
+  ],
+  "studentAges": [
+    "Primary School (Grades: 1-4)",
+    "Primary School (Grades: 5-8)",
+    "Secondary School"
+  ],
+  "schoolTypes": [
+    "Primary School",
+    "Gymnasium",
+    "Trade School",
+    "Art School"
+  ],
+  "primarySchoolGrades": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8"
+  ],
+  "secondarySchoolGrades": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ]
+}]

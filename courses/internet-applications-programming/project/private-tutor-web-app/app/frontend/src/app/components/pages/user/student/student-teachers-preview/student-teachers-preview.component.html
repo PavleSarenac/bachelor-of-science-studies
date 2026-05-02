@@ -1,0 +1,181 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-student-header></app-student-header>
+  <div class="row main bg-dark rounded">
+    <div class="col-sm-12 mt-3 fw-bold fs-3 text-center text-white">
+      Subjects that we are teaching:
+    </div>
+    <div class="col-sm-12 mt-3 text-center">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showSubjects()">Show subjects</button>
+        <button type="button" class="btn btn-outline-light" (click)="hideSubjects()">Hide subjects</button>
+      </div>
+    </div>
+    <ng-container *ngIf="shouldShowSubjects">
+      <div class="col-sm-12 fw-bold text-center mt-5 mb-4 text-white">
+        Sort by: &nbsp;
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"
+            [(ngModel)]="shouldSortSubjectsBySubject" (change)="sortSubjects()">
+          <label class="form-check-label" for="inlineCheckbox3">Subject</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"
+            [(ngModel)]="shouldSortSubjectsByTeacherName" (change)="sortSubjects()">
+          <label class="form-check-label" for="inlineCheckbox1">Teacher
+            name</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"
+            [(ngModel)]="shouldSortSubjectsByTeacherSurname" (change)="sortSubjects()">
+          <label class="form-check-label" for="inlineCheckbox2">Teacher
+            surname</label>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <table class="table table-dark table-bordered table-striped table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col" class="w-50">Subject</th>
+              <th scope="col" class="w-50">Teachers</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let subject of shouldShowSortedSubjects ? subjectsSorted : data.subjects" class="text-center">
+              <td class="align-middle">{{subject}}</td>
+              <td>
+                <button class="btn btn-light mt-2 mb-2" data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#' + subject.replaceAll(' ', '')">
+                  Click to see {{subject}} teachers
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="modal fade" *ngFor="let subject of shouldShowSortedSubjects ? subjectsSorted : data.subjects"
+          [id]="subject.replaceAll(' ', '')" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" [id]="subject">
+                  {{subject}} teachers
+                </h1>
+                <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row" *ngFor="let teacher of shouldShowSortedSubjects ? allTeachersSorted : allTeachers">
+                  <ng-container *ngIf="teacher.teacherSubjects.includes(subject)">
+                    <div class="col-sm-6 text-end">
+                      <button class="btn btn-dark mb-2" data-bs-dismiss="modal" aria-label="Close"
+                        (click)="seeTeacherDetails(teacher.username)">{{teacher.name}}
+                        {{teacher.surname}}</button>
+                    </div>
+                    <div class="col-sm-6 text-start">
+                      <app-star-rating-view class="ms-3" *ngIf="teacher.teacherAverageGrade != 0"
+                        [rating]="teacher.teacherAverageGrade"></app-star-rating-view>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div class="col-sm-12 alert fw-bold fs-3 text-center black-background text-white mt-5" role=" alert">
+      Find the teacher you want:
+      <br>
+      <div class="input-group mt-2">
+        <input type="text" class="form-control border border-dark" placeholder="Teacher name..."
+          [(ngModel)]="searchTeacherName">
+        <input type="text" class="form-control border border-dark" placeholder="Teacher surname..."
+          [(ngModel)]="searchTeacherSurname">
+        <input type="text" class="form-control border border-dark" placeholder="Subject..." [(ngModel)]="searchSubject">
+      </div>
+      <div class="btn-group mt-3" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showSearchResults()">Show teachers</button>
+        <button type="button" class="btn btn-outline-light" (click)="hideSearchResults()">Hide teachers</button>
+      </div>
+    </div>
+    <ng-container *ngIf="shouldShowSearchResults && allTeachersSearched.length > 0">
+      <div class="col-sm-12 fw-bold text-center mt-4 text-white mb-3">
+        Sort by: &nbsp;
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"
+            [(ngModel)]="shouldSortTeachersByTeacherName" (change)="sortTeachers()">
+          <label class="form-check-label" for="inlineCheckbox1">Teacher
+            name</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2"
+            [(ngModel)]="shouldSortTeachersByTeacherSurname" (change)="sortTeachers()">
+          <label class="form-check-label" for="inlineCheckbox2">Teacher
+            surname</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"
+            [(ngModel)]="shouldSortTeachersBySubject" (change)="sortTeachers()">
+          <label class="form-check-label" for="inlineCheckbox3">Subject</label>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <table class="table table-dark table-bordered table-striped table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col" class="w-33">Teacher</th>
+              <th scope="col" class="w-33">Teacher's Average Grade</th>
+              <th scope="col" class="w-33">Subjects</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let teacher of shouldShowSortedTeachers ? allTeachersSearchedSorted : allTeachersSearched"
+              class="text-center">
+              <td class="align-middle">
+                <button class="btn btn-light" (click)="seeTeacherDetails(teacher.username)">{{teacher.name}}
+                  {{teacher.surname}}</button>
+              </td>
+              <td class="align-middle" *ngIf="teacher.teacherAverageGrade != 0">
+                {{teacher.teacherAverageGrade | number:"1.2-2"}} &nbsp;
+                <app-star-rating-view [rating]="teacher.teacherAverageGrade"></app-star-rating-view>
+              </td>
+              <td class="align-middle" *ngIf="teacher.teacherAverageGrade == 0">-</td>
+              <td>
+                <button class="btn btn-light mt-2 mb-2" data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#' + teacher.username">
+                  Click to see {{teacher.name}} {{teacher.surname}}'s subjects
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="modal fade"
+          *ngFor="let teacher of shouldShowSortedTeachers ? allTeachersSearchedSorted : allTeachersSearched"
+          [id]="teacher.username" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" [id]="teacher.username">
+                  {{teacher.name}} {{teacher.surname}}'s subjects
+                </h1>
+                <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <span class="text-break"
+                  *ngFor="let subject of shouldShowSortedTeachers ? subjectsSearchedSorted : teacher.teacherSubjects">
+                  <ng-container *ngIf="teacher.teacherSubjects.includes(subject)">
+                    {{subject}} <br>
+                  </ng-container>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="shouldShowSearchResults && allTeachersSearched.length == 0">
+      <div class="col-sm-12 alert fw-bold text-center text-white black-background" role="alert">
+        There are no teachers for this search criteria.
+      </div>
+    </ng-container>
+  </div>
+  <app-footer></app-footer>
+</div>

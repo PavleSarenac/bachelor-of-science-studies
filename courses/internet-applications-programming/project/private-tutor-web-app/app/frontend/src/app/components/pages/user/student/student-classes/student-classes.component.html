@@ -1,0 +1,162 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-student-header></app-student-header>
+  <div class="row main bg-dark rounded">
+    <div class="col-sm-12 text-white fw-bold text-center mt-3 fs-3">
+      Upcoming classes:
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center">
+      <div class="btn-group mt-3 mb-4" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showUpcomingClasses()">
+          Show upcoming classes
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="hideUpcomingClasses()">
+          Hide upcoming classes
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <ng-container *ngIf="shouldShowUpcomingClasses && allUpcomingClasses.length > 0">
+      <div class="col-sm-12">
+        <table class="table table-dark table-bordered table-striped table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col" class="w-16">Teacher</th>
+              <th scope="col" class="w-16">Subject</th>
+              <th scope="col" class="w-16">My Class Description</th>
+              <th scope="col" class="w-16">Date</th>
+              <th scope="col" class="w-16">Time</th>
+              <th scope="col" class="w-16">Join class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let upcomingClass of allUpcomingClasses" class="text-center">
+              <td class="align-middle">{{upcomingClass.teacherName}} {{upcomingClass.teacherSurname}}</td>
+              <td class="align-middle">{{upcomingClass.subject}}</td>
+              <td class="align-middle" *ngIf="upcomingClass.description != ''">{{upcomingClass.description}}</td>
+              <td class="align-middle" *ngIf="upcomingClass.description == ''">-</td>
+              <td class="align-middle">{{upcomingClass.startDate}}</td>
+              <td class="align-middle">{{upcomingClass.startTime}}-{{upcomingClass.endTime}}</td>
+              <td class="align-middle">
+                <button class="btn btn-light"
+                  *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) <= 15"
+                  (click)="joinClass()">Join</button>
+                <span *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) > 15">
+                  Can't join yet.
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="shouldShowUpcomingClasses && allUpcomingClasses.length == 0">
+      <div class="col-sm-12 text-center text-white fw-bold mb-3">
+        There are no upcoming classes.
+      </div>
+    </ng-container>
+    <div class="col-sm-12 text-white fw-bold text-center mt-3 mb-3 fs-3">
+      Class archive:
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center">
+      <div class="btn-group mb-5" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showPastClasses()">
+          Show past classes
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="hidePastClasses()">
+          Hide past classes
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <ng-container *ngIf="shouldShowPastClasses && allPastClasses.length > 0">
+      <div class="col-sm-12">
+        <table class="table table-dark table-bordered table-striped table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col" class="w-16">Teacher</th>
+              <th scope="col" class="w-16">Subject</th>
+              <th scope="col" class="w-16">Date</th>
+              <th scope="col" class="w-16">Time</th>
+              <th scope="col" class="w-16">Teacher's Comment</th>
+              <th scope="col" class="w-16">Rate Teacher</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pastClass of allPastClasses" class="text-center">
+              <td class="align-middle">{{pastClass.teacherName}} {{pastClass.teacherSurname}}</td>
+              <td class="align-middle">{{pastClass.subject}}</td>
+              <td class="align-middle">{{pastClass.startDate}}</td>
+              <td class="align-middle">{{pastClass.startTime}}-{{pastClass.endTime}}</td>
+              <td class="align-middle" *ngIf="pastClass.teacherToStudentComment != ''">
+                {{pastClass.teacherToStudentComment}}
+              </td>
+              <td class="align-middle" *ngIf="pastClass.teacherToStudentComment == ''">-</td>
+              <td class="align-middle">
+                <ng-container *ngIf="pastClass.studentToTeacherGrade == 0">
+                  <button class="btn btn-light" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#class' + pastClass.id">Rate</button>
+                </ng-container>
+                <ng-container *ngIf="pastClass.studentToTeacherGrade != 0">
+                  Already rated.
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="shouldShowPastClasses && allPastClasses.length == 0">
+      <div class="col-sm-12 text-center text-white fw-bold mb-4">
+        There are no past classes.
+      </div>
+    </ng-container>
+  </div>
+  <app-footer></app-footer>
+</div>
+<div class="modal fade" *ngFor="let pastClass of allPastClasses" [id]="'class' + pastClass.id" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" [id]="'class' + pastClass.id">
+          Rate {{pastClass.teacherName}} {{pastClass.teacherSurname}}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-start">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            Leave a comment:
+          </div>
+          <div class="col-sm-12">
+            <textarea class="form-control" cols="15" rows="5" [(ngModel)]="pastClass.studentToTeacherComment">
+            </textarea>
+          </div>
+          <div class="col-sm-12 mt-3 mb-2">
+            Leave a rating: &nbsp;
+            <i class="bi" [class.bi-star-fill]="studentToTeacherGrade >= 1" [class.bi-star]="studentToTeacherGrade == 0"
+              (click)="setRating(1)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="studentToTeacherGrade >= 2" [class.bi-star]="studentToTeacherGrade < 2"
+              (click)="setRating(2)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="studentToTeacherGrade >= 3" [class.bi-star]="studentToTeacherGrade < 3"
+              (click)="setRating(3)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="studentToTeacherGrade >= 4" [class.bi-star]="studentToTeacherGrade < 4"
+              (click)="setRating(4)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="studentToTeacherGrade == 5" [class.bi-star]="studentToTeacherGrade < 5"
+              (click)="setRating(5)"></i>
+          </div>
+          <div class="col-sm-12 text-danger" *ngIf="studentToTeacherGrade == 0">
+            {{ratingError}}
+          </div>
+          <div class="col-sm-12 text-center mt-4">
+            <button class="btn btn-dark" (click)="rateTeacher(pastClass)" data-bs-dismiss="modal"
+              *ngIf="studentToTeacherGrade != 0">Rate</button>
+            <button class="btn btn-dark" *ngIf="studentToTeacherGrade == 0">Rate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

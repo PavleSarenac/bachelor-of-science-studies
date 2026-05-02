@@ -1,0 +1,79 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-admin-header></app-admin-header>
+  <div class="row main" *ngIf="shouldLoadContent && !doActiveTeachersExist">
+    <div class="alert alert-dark" role="alert">
+      <b>There are no active teachers.</b>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 main" *ngIf="shouldLoadContent && doActiveTeachersExist">
+    <div class="col" *ngFor="let data of allTeachersData">
+      <div class="card h-100">
+        <img [src]="data.profilePictureUrl" class="card-img-top img-fluid" alt="Profile Picture">
+        <div class="card-body">
+          <h5 class="card-title text-center"><b>{{data.teacher.name}} {{data.teacher.surname}}</b></h5>
+        </div>
+        <ul class=" list-group list-group-flush">
+          <li class="list-group-item"><b>Address:</b> &nbsp;{{data.teacher.address}}</li>
+          <li class="list-group-item"><b>Email:</b> &nbsp;{{data.teacher.email}}</li>
+          <li class="list-group-item"><b>Phone:</b> &nbsp;{{data.teacher.phone}}</li>
+          <li class="list-group-item"><b>Subjects:</b> &nbsp;
+            <button class="btn btn-dark" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#' + data.teacher.username + '-subjects'">
+              Click to see
+            </button>
+          </li>
+          <li class="list-group-item"><b>Student ages:</b> &nbsp;
+            <button class="btn btn-dark" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#' + data.teacher.username + '-studentAges'">
+              Click to see
+            </button>
+          </li>
+          <li class="list-group-item"><b>CV:</b> &nbsp;<button class="btn btn-dark"
+              (click)="downloadPdf(data.teacher)">Download PDF</button></li>
+        </ul>
+        <div class="card-footer">
+          <b>Update info: &nbsp;</b>
+          <button class="btn btn-dark" (click)="updateTeacherInfo(data.teacher.username)">Update</button>
+        </div>
+        <div class="card-footer">
+          <b>Deactivate account: &nbsp;</b>
+          <button class="btn btn-dark" (click)="banTeacherAccount(data.teacher.username)">Deactivate</button>
+        </div>
+      </div>
+      <div class="modal fade" [id]="data.teacher.username + '-subjects'" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" [id]="data.teacher.username + '-subjects'">
+                {{data.teacher.name}} {{data.teacher.surname}}'s subjects
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <span class="text-break" *ngFor="let subject of data.teacher.teacherSubjects">{{subject}} <br></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" [id]="data.teacher.username + '-studentAges'" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" [id]="data.teacher.username + '-studentAges'">
+                {{data.teacher.name}} {{data.teacher.surname}}'s student ages
+              </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <span class="text-break"
+                *ngFor="let studentAge of data.teacher.teacherPreferredStudentsAge">{{studentAge}} <br></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

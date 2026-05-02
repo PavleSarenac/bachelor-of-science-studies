@@ -1,0 +1,33 @@
+<div class="row bg-dark rounded main">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6 mt-3 mb-3">
+    <label for="input-username" class="form-label text-white">Username</label>
+    <input type="text" class="form-control" [class.is-invalid]="username == ''" [class.is-valid]="username != ''"
+      id="input-username" [(ngModel)]="username">
+    <div class="invalid-feedback">
+      {{usernameError}}
+    </div>
+    <div class="valid-feedback">
+      Thanks!
+    </div>
+  </div>
+  <div class="col-sm-3"></div>
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6 mb-3">
+    <label for="input-password" class="form-label text-white">Password</label>
+    <input type="password" class="form-control" [class.is-invalid]="password == ''" [class.is-valid]="password != ''"
+      id="input-password" [(ngModel)]="password">
+    <div class="invalid-feedback">
+      {{passwordError}}
+    </div>
+    <div class="valid-feedback">
+      Thanks!
+    </div>
+  </div>
+  <div class="col-sm-3"></div>
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6 text-center mb-3">
+    <button class="btn btn-md btn-light" type="submit" (click)="login()">{{buttonText}}</button>
+  </div>
+  <div class="col-sm-3"></div>
+</div>

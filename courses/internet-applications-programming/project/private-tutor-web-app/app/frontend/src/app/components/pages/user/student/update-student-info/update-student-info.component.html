@@ -1,0 +1,98 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-student-header></app-student-header>
+  <div class="row update-student-info-main bg-dark rounded">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mt-3 mb-3">
+      <label for="input-name" class="form-label text-white mt-1">New name</label>
+      <input type="text" class="form-control" id="input-name" [(ngModel)]="newName">
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mb-3">
+      <label for="input-surname" class="form-label text-white">New surname</label>
+      <input type="text" class="form-control" id="input-surname" [(ngModel)]="newSurname">
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mb-3">
+      <label for="input-photo" class="form-label text-white mt-1">New Profile picture</label>
+      <input type="file" class="form-control" accept=".jpg, .png" (change)="onImageSelected($event)" id="input-photo">
+      <span *ngIf="isInvalidImage" class="text-danger small">{{profilePictureError}}</span>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mb-3">
+      <label for="input-address" class="form-label text-white">New address</label>
+      <input type="text" class="form-control" id="input-address" [(ngModel)]="newAddress">
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mb-3">
+      <label for="input-email" class="form-label text-white">New email</label>
+      <input type="text" class="form-control" id="input-email" [(ngModel)]="newEmail">
+      <span *ngIf="newEmailError != ''" class="text-danger small">{{newEmailError}}</span>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mb-3">
+      <label for="input-phone" class="form-label text-white">New phone number (format: 06[0-6]/xxx-xxx[x])</label>
+      <input type="text" class="form-control" id="input-phone" [(ngModel)]="newPhone">
+      <span *ngIf="newPhoneError != ''" class="text-danger small">{{newPhoneError}}</span>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mb-3">
+      <div class="dropup">
+        <span class="text-white">School type:</span>&nbsp;
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span *ngIf="newSchoolType == ''">Pick one</span>
+          <span *ngIf="newSchoolType != ''">{{newSchoolType}}</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li *ngFor="let schoolType of data.schoolTypes">
+            <button class="btn dropdown-item" (click)="updateSchoolType(schoolType)">{{schoolType}}</button>
+            <hr *ngIf="schoolType !== 'Art school'" class="dropdown-divider">
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 mb-3">
+      <div class="dropup">
+        <span class="text-white">Current grade:</span>&nbsp;
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <span *ngIf="newCurrentGrade == ''">Pick one</span>
+          <span *ngIf="newCurrentGrade != ''">{{newCurrentGrade}}</span>
+        </button>
+        <ul class="dropdown-menu">
+          <ng-container *ngIf="newSchoolType == data.schoolTypes[0] || newSchoolType == ''">
+            <li *ngFor="let primarySchoolGrade of data.primarySchoolGrades">
+              <button class="dropdown-item" (click)="updateCurrentGrade(primarySchoolGrade)">
+                {{primarySchoolGrade}}
+              </button>
+              <hr *ngIf="primarySchoolGrade !== '8'" class="dropdown-divider">
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="newSchoolType !== data.schoolTypes[0] && newSchoolType !== ''">
+            <li *ngFor="let secondarySchoolGrade of data.secondarySchoolGrades">
+              <button class="dropdown-item" (click)="updateCurrentGrade(secondarySchoolGrade)">
+                {{secondarySchoolGrade}}
+              </button>
+              <hr *ngIf="secondarySchoolGrade !== '4'" class="dropdown-divider">
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <span *ngIf="newCurrentGradeError != ''" class="text-danger small">{{newCurrentGradeError}}</span>
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center mb-3">
+      <button class="btn btn-md btn-light" type="submit" (click)="updateStudentInfo()">Update info</button>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  <app-footer></app-footer>
+</div>

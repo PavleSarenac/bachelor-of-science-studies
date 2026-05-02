@@ -1,0 +1,130 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-teacher-header></app-teacher-header>
+  <div class="row main bg-dark rounded" *ngIf="initializationDone">
+    <ng-container *ngIf="allDoneClasses.length > 0">
+      <div class="col-sm-12 text-white fw-bold text-center mt-3 fs-3 mb-3">
+        My students:
+      </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-4 text-center">
+        <table class="table table-dark table-bordered table-striped table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">Student</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="text-center" *ngFor="let mapping of studentToClassesArray">
+              <td class="align-middle">
+                <button class="btn btn-light mt-2 mb-2" data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#' + mapping.studentData.substring(0, mapping.studentData.indexOf(';'))">
+                  {{mapping.studentData.substring(mapping.studentData.indexOf(";") + 1,
+                  mapping.studentData.lastIndexOf(";"))}}
+                  {{mapping.studentData.substring(mapping.studentData.lastIndexOf(";") + 1)}}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-sm-4"></div>
+    </ng-container>
+    <ng-container *ngIf="allDoneClasses.length == 0">
+      <div class="col-sm-12 fs-4 mt-3 text-center text-white fw-bold mb-3">
+        You have no students.
+      </div>
+    </ng-container>
+  </div>
+  <app-footer></app-footer>
+</div>
+<div class="modal fade" tabindex="-1" *ngFor="let mapping of studentToClassesArray"
+  [id]="mapping.studentData.substring(0, mapping.studentData.indexOf(';'))" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" [id]="mapping.studentData.substring(0, mapping.studentData.indexOf(';'))">
+          Classes with {{mapping.studentData.substring(mapping.studentData.indexOf(";") + 1,
+          mapping.studentData.lastIndexOf(";"))}}
+          {{mapping.studentData.substring(mapping.studentData.lastIndexOf(";") + 1)}}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-start">
+        <div class="row">
+          <table class="table table-light table-bordered table-striped table-hover">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">Subject</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Rate Student</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center" *ngFor="let class of mapping.classes">
+                <td class="align-middle">{{class.subject}}</td>
+                <td class="align-middle">{{class.startDate}}</td>
+                <td class="align-middle">{{class.startTime}}-{{class.endTime}}</td>
+                <td class="align-middle">
+                  <ng-container *ngIf="class.teacherToStudentGrade == 0">
+                    <button class="btn btn-dark" data-bs-toggle="modal"
+                      [attr.data-bs-target]="'#class' + class.id">Rate</button>
+                  </ng-container>
+                  <ng-container *ngIf="class.teacherToStudentGrade != 0">
+                    Already rated.
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" *ngFor="let class of allDoneClasses" [id]="'class' + class.id" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" [id]="'class' + class.id">
+          Rate {{class.studentName}} {{class.studentSurname}}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-start">
+        <div class="row">
+          <div class="col-sm-12 mb-2">
+            Leave a comment:
+          </div>
+          <div class="col-sm-12">
+            <textarea class="form-control" cols="15" rows="5" [(ngModel)]="class.teacherToStudentComment">
+            </textarea>
+          </div>
+          <div class="col-sm-12 mt-3 mb-2">
+            Leave a rating: &nbsp;
+            <i class="bi" [class.bi-star-fill]="teacherToStudentGrade >= 1" [class.bi-star]="teacherToStudentGrade == 0"
+              (click)="setRating(1)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="teacherToStudentGrade >= 2" [class.bi-star]="teacherToStudentGrade < 2"
+              (click)="setRating(2)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="teacherToStudentGrade >= 3" [class.bi-star]="teacherToStudentGrade < 3"
+              (click)="setRating(3)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="teacherToStudentGrade >= 4" [class.bi-star]="teacherToStudentGrade < 4"
+              (click)="setRating(4)"></i>&nbsp;
+            <i class="bi" [class.bi-star-fill]="teacherToStudentGrade == 5" [class.bi-star]="teacherToStudentGrade < 5"
+              (click)="setRating(5)"></i>
+          </div>
+          <div class="col-sm-12 text-danger" *ngIf="teacherToStudentGrade == 0">
+            {{ratingError}}
+          </div>
+          <div class="col-sm-12 text-center mt-4">
+            <button class="btn btn-dark" (click)="rateStudent(class)" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#' + class.studentUsername" *ngIf="teacherToStudentGrade != 0">Rate</button>
+            <button class="btn btn-dark" *ngIf="teacherToStudentGrade == 0">Rate</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

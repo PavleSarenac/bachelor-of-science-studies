@@ -1,0 +1,205 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-student-header></app-student-header>
+  <div class="row main" *ngIf="profilePictureUrl != null">
+    <div class="col-sm-12 text-center">
+      <div class="card mx-auto" style="width: 26rem;">
+        <img [src]="profilePictureUrl" class="card-img-top img-fluid" alt="Profile Picture">
+        <div class="card-body">
+          <h5 class="card-title text-center"><b>{{teacher.name}} {{teacher.surname}}</b></h5>
+        </div>
+        <ul class=" list-group list-group-flush text-start">
+          <li class="list-group-item"><b>Email:</b> &nbsp;{{teacher.email}}</li>
+          <li class="list-group-item"><b>Phone:</b> &nbsp;{{teacher.phone}}</li>
+          <li class="list-group-item"><b>Subjects:</b> &nbsp;
+            <button class="btn btn-dark" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#' + teacher.username + '-subjects'">
+              Click to see
+            </button>
+          </li>
+        </ul>
+        <div class="card-footer text-start">
+          <b>Working hours:</b> &nbsp;
+          <button class="btn btn-dark" data-bs-toggle="modal"
+            [attr.data-bs-target]="'#' + teacher.username + '-working-hours'">
+            Click to see
+          </button>
+        </div>
+        <div class="card-footer text-start">
+          <b>Reviews:</b> &nbsp;
+          <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#reviewsModal">
+            Click to see
+          </button>
+        </div>
+        <div class="card-footer text-start">
+          <b>Schedule a class:</b> &nbsp;
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+              data-bs-target="#schedule-class-form">Form</button>
+            <button type="button" class="btn btn-outline-dark"
+              routerLink="/student-schedule-class-calendar">Calendar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" [id]="teacher.username + '-working-hours'" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" [id]="teacher.username + '-working-hours'">
+              {{teacher.name}} {{teacher.surname}}'s working hours
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <span class="text-break" *ngFor="let day of teacher.workingDays">
+              {{day}} ({{teacher.workingHours}})
+              <br>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" [id]="teacher.username + '-subjects'" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" [id]="teacher.username + '-subjects'">
+              {{teacher.name}} {{teacher.surname}}'s subjects
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <span class="text-break" *ngFor="let subject of teacher.teacherSubjects">{{subject}} <br></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="schedule-class-form" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="schedule-class-form">
+              Schedule a class with {{teacher.name}} {{teacher.surname}}
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="dropdown col-sm-12">
+                <span class="text-dark">Subject:</span>&nbsp;
+                <button class="btn btn-outline-dark dropdown-toggle" [disabled]="teacher.teacherSubjects.length == 1"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span *ngIf="class.subject == ''">Pick one</span>
+                  <span *ngIf="class.subject != ''">{{class.subject}}</span>
+                </button>
+                <ul class="dropdown-menu">
+                  <li *ngFor="let subject of teacher.teacherSubjects">
+                    <button class="btn btn-dark dropdown-item"
+                      (click)="updateChosenSubject(subject)">{{subject}}</button>
+                    <hr class="dropdown-divider">
+                  </li>
+                </ul>
+              </div>
+              <div class="col-sm-12">
+                <span *ngIf="class.subject == ''" class="text-danger small">{{subjectError}}</span>
+                <span *ngIf="class.subject != ''" class="text-success small">{{successMessage}}</span>
+              </div>
+              <div class="col-sm-12 mt-2">
+                <label for="input-date" class="form-label">Date</label>
+                <input type="date" id="input-date" class="form-control" [(ngModel)]="class.startDate"
+                  [class.is-invalid]="class.startDate == ''" [class.is-valid]="class.startDate != ''">
+                <div class="invalid-feedback">
+                  {{dateError}}
+                </div>
+                <div class="valid-feedback">
+                  {{successMessage}}
+                </div>
+              </div>
+              <div class="col-sm-12 mt-2">
+                <label for="input-time" class="form-label">Time</label>
+                <input type="time" id="input-time" class="form-control" [(ngModel)]="class.startTime"
+                  [class.is-invalid]="class.startTime == ''" [class.is-valid]="class.startTime != ''" step="1800">
+                <div class="invalid-feedback">
+                  {{timeError}}
+                </div>
+                <div class="valid-feedback">
+                  {{successMessage}}
+                </div>
+              </div>
+              <div class="col-sm-12 mt-2">
+                <label for="input-description" class="form-label">Description</label>
+                <input type="text" id="input-description" class="form-control is-valid" [(ngModel)]="class.description">
+                <div class="valid-feedback">
+                  {{successMessage}}
+                </div>
+              </div>
+              <div class="col-sm-12 mt-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="double-class" [(ngModel)]="isDoubleClass">
+                  <label class="form-check-label text-dark" for="double-class">
+                    I want a double class.
+                  </label>
+                </div>
+              </div>
+              <div class="col-sm-12 mt-2 text-center">
+                <button class="btn btn-dark" (click)="scheduleClass()">Schedule</button>
+              </div>
+              <div class="col-sm-12" hidden>
+                <button #closeModalButton data-bs-dismiss="modal" (click)="hideModal()"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+<div class="modal fade" id="reviewsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="reviewsModal">
+          {{teacher.name}} {{teacher.surname}}'s reviews
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="row">
+          <table class="table table-light table-bordered table-striped table-hover">
+            <thead>
+              <tr class="text-center">
+                <th scope="col">Student</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Date</th>
+                <th scope="col">Time</th>
+                <th scope="col">Grade</th>
+                <th scope="col">Student's Comment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center" *ngFor="let class of allReviewedClasses">
+                <td class="align-middle">{{class.studentName}} {{class.studentSurname}}</td>
+                <td class="align-middle">{{class.subject}}</td>
+                <td class="align-middle">{{class.startDate}}</td>
+                <td class="align-middle">{{class.startTime}}-{{class.endTime}}</td>
+                <td class="align-middle" *ngIf="class.studentToTeacherGrade != 0">
+                  {{class.studentToTeacherGrade | number:"1.0-0"}} &nbsp;
+                  <app-star-rating-view [rating]="class.studentToTeacherGrade"></app-star-rating-view>
+                </td>
+                <td class="align-middle" *ngIf="class.studentToTeacherGrade == 0">-</td>
+                <td class="align-middle" *ngIf="class.studentToTeacherComment != ''">
+                  {{class.studentToTeacherComment}}
+                </td>
+                <td class="align-middle" *ngIf="class.studentToTeacherComment == ''">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

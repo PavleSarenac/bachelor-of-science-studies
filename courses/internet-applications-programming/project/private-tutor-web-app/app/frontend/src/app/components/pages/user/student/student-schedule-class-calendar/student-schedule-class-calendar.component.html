@@ -1,0 +1,91 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-student-header></app-student-header>
+  <div class="row main">
+    <div class="col-sm-12">
+      <full-calendar [options]='calendarOptions()'>
+        <ng-template #eventContent let-arg>
+          <b>{{ arg.timeText }}</b>&nbsp;
+          <i>{{ arg.event.title }}</i>
+        </ng-template>
+      </full-calendar>
+    </div>
+    <div class="col-sm-12" hidden>
+      <button #openModalButton data-bs-toggle="modal" data-bs-target="#schedule-class-modal"
+        (click)="openModal()"></button>
+    </div>
+    <div class="col-sm-12" hidden>
+      <button #hideModalButton data-bs-target="#schedule-class-modal" data-bs-dismiss="modal"
+        (click)="hideModal()"></button>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>
+<div class="modal fade" id="schedule-class-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="schedule-class-modal">
+          Schedule a class with {{teacher.name}} {{teacher.surname}}
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="row">
+            <div class="dropdown col-sm-12">
+              <span class="text-dark">Subject:</span>&nbsp;
+              <button class="btn btn-outline-dark dropdown-toggle" [disabled]="teacher.teacherSubjects.length == 1"
+                type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <span *ngIf="class.subject == ''">Pick one</span>
+                <span *ngIf="class.subject != ''">{{class.subject}}</span>
+              </button>
+              <ul class="dropdown-menu">
+                <li *ngFor="let subject of teacher.teacherSubjects">
+                  <button class="btn btn-dark dropdown-item" (click)="updateChosenSubject(subject)">{{subject}}</button>
+                  <hr class="dropdown-divider">
+                </li>
+              </ul>
+            </div>
+            <div class="col-sm-12">
+              <span *ngIf="class.subject == ''" class="text-danger small">{{subjectError}}</span>
+              <span *ngIf="class.subject != ''" class="text-success small">{{successMessage}}</span>
+            </div>
+            <div class="col-sm-12 mt-2">
+              <label for="input-date" class="form-label">Date</label>
+              <input type="date" id="input-date" class="form-control" [(ngModel)]="class.startDate"
+                [class.is-invalid]="class.startDate == ''" [class.is-valid]="class.startDate != ''" disabled>
+              <div class="invalid-feedback">
+                {{dateError}}
+              </div>
+              <div class="valid-feedback">
+                {{successMessage}}
+              </div>
+            </div>
+            <div class="col-sm-12 mt-2">
+              <label for="input-time" class="form-label">Time</label>
+              <input type="time" id="input-time" class="form-control" [(ngModel)]="class.startTime"
+                [class.is-invalid]="class.startTime == ''" [class.is-valid]="class.startTime != ''" step="1800"
+                [disabled]="didUserSelectTime">
+              <div class="invalid-feedback">
+                {{timeError}}
+              </div>
+              <div class="valid-feedback">
+                {{successMessage}}
+              </div>
+            </div>
+            <div class="col-sm-12 mt-2">
+              <label for="input-description" class="form-label">Description</label>
+              <input type="text" id="input-description" class="form-control is-valid" [(ngModel)]="class.description">
+              <div class="valid-feedback">
+                {{successMessage}}
+              </div>
+            </div>
+            <div class="col-sm-12 mt-2 text-center">
+              <button class="btn btn-dark" (click)="scheduleClass()">Schedule</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

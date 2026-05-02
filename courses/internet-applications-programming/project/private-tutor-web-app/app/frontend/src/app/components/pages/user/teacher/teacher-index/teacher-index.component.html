@@ -1,0 +1,69 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-teacher-header></app-teacher-header>
+  <div class="row main" *ngIf="profilePictureUrl != null">
+    <div class="col-sm-12 text-center">
+      <div class="card mx-auto" style="width: 26rem;">
+        <img [src]="profilePictureUrl" class="card-img-top img-fluid" alt="Profile Picture">
+        <div class="card-body">
+          <h5 class="card-title text-center"><b>{{user.name}} {{user.surname}}</b></h5>
+        </div>
+        <ul class=" list-group list-group-flush text-start">
+          <li class="list-group-item"><b>Address:</b> &nbsp;{{user.address}}</li>
+          <li class="list-group-item"><b>Email:</b> &nbsp;{{user.email}}</li>
+          <li class="list-group-item"><b>Phone:</b> &nbsp;{{user.phone}}</li>
+          <li class="list-group-item"><b>Subjects:</b> &nbsp;
+            <button class="btn btn-dark" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#' + user.username + '-subjects'">
+              Click to see
+            </button>
+          </li>
+          <li class="list-group-item"><b>Student ages:</b> &nbsp;
+            <button class="btn btn-dark" data-bs-toggle="modal"
+              [attr.data-bs-target]="'#' + user.username + '-studentAges'">
+              Click to see
+            </button>
+          </li>
+        </ul>
+        <div class="card-footer text-start">
+          <b>Update info:</b> &nbsp;
+          <button class="btn btn-dark" (click)="storeTeacherToBeUpdatedUsernameInLocalStorage()"
+            routerLink="/teacher-update-teacher-info">Update</button>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" [id]="user.username + '-subjects'" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" [id]="user.username + '-subjects'">
+              {{user.name}} {{user.surname}}'s subjects
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <span class="text-break" *ngFor="let subject of user.teacherSubjects">{{subject}} <br></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" [id]="user.username + '-studentAges'" tabindex="-1" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" [id]="user.username + '-studentAges'">
+              {{user.name}} {{user.surname}}'s student ages
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <span class="text-break" *ngFor="let studentAge of user.teacherPreferredStudentsAge">{{studentAge}}
+              <br></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

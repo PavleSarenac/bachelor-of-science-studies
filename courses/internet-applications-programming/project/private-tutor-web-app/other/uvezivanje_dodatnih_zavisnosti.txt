@@ -1,0 +1,62 @@
+==========================================================================================================================
+1) bootstrap: 
+==========================================================================================================================
+Uputstvo za preuzimanje:
+	1) otvoriti u VS-Code terminal (command prompt)
+	2) pozicionirati se u frontend folder
+	3) izvrsiti komandu: npm install bootstrap bootstrap-icons
+	4) izvrsiti komandu: npm install @types/bootstrap
+	5) u frontend/angular.json fajlu izmeniti:
+		* "projects" -> "frontend" -> "architect" -> "build" -> "options" -> "styles" treba da izgleda ovako:
+			"styles": [
+				"node_modules/bootstrap/dist/css/bootstrap.min.css",
+				"node_modules/bootstrap-icons/font/bootstrap-icons.css",
+				"src/styles.css"
+            ]
+		* "projects" -> "frontend" -> "architect" -> "build" -> "options" -> "scripts" treba da izgleda ovako:
+			"scripts": [
+				"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
+==========================================================================================================================
+2) multer (objekat na backend-u koji omogucava cuvanje fajlova na serveru):
+==========================================================================================================================
+Uputstvo za instalaciju:
+	1) otvoriti u VS-Code terminal (command prompt)
+	2) pozicionirati se u backend folder
+	3) izvrsiti komandu: npm install multer
+	4) izvrsiti komandu: npm install @types/multer
+==========================================================================================================================
+3) image-size (zahvaljujuci ovome je moguca laka provera dimenzija slike na backend-u):
+==========================================================================================================================
+Uputstvo za instalaciju:
+	1) otvoriti u VS-Code terminal (command prompt)
+	2) pozicionirati se u backend folder
+	3) izvrsiti komandu: npm install image-size
+==========================================================================================================================
+4) bcrypt (za sifrovanje lozinke)
+==========================================================================================================================
+Uputstvo za instalaciju:
+	1) otvoriti u VS-Code terminal (command prompt)
+	2) pozicionirati se u backend folder
+	3) izvrsiti komandu: npm install bcrypt
+	4) izvrsiti komandu: npm install @types/bcrypt
+==========================================================================================================================
+5) chart.js (za prikaz statistickih dijagrama adminu)
+==========================================================================================================================
+Uputstvo za instalaciju:
+	1) otvoriti u VS-Code terminal (command prompt)
+	2) pozicionirati se u frontend folder
+	3) izvrsiti komandu: npm install chart.js
+==========================================================================================================================
+6) FullCalendar (za zakazivanje casova i vizuelni pregled dostupnosti nastavnika)
+==========================================================================================================================
+Uputstvo za instalaciju:
+	1) otvoriti u VS-Code terminal (command prompt)
+	2) pozicionirati se u frontend folder
+	3) izvrsiti komandu: npm install @fullcalendar/core
+	4) izvrsiti komandu: npm install @fullcalendar/angular
+	5) izvrsiti komandu: npm install @fullcalendar/daygrid
+	6) izvrsiti komandu: npm install @fullcalendar/timegrid
+	7) izvrsiti komandu: npm install @fullcalendar/list
+	8) izvrsiti komandu: npm install @fullcalendar/interaction
+============================================================================================================================

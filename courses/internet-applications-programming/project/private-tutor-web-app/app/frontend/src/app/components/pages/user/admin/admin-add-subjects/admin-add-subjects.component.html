@@ -1,0 +1,27 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-admin-header></app-admin-header>
+  <div class="row main bg-dark rounded">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <label for="input-subject" class="form-label text-white mt-2">Subject</label>
+      <input type="text" class="form-control" id="input-subject" [(ngModel)]="newSubject">
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4" *ngIf="showError"></div>
+    <div class="col-sm-4 text-center text-danger mt-3 mb-3" *ngIf="showError">
+      {{error}}
+    </div>
+    <div class="col-sm-4" *ngIf="showError"></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 text-center">
+      <button class="btn btn-light mt-3" (click)="addSubject()">Add subject</button>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4 text-center">
+      <button class="btn btn-light mb-3 mt-3" (click)="confirm()">Confirm</button>
+    </div>
+    <div class="col-sm-4"></div>
+  </div>
+  <app-footer></app-footer>
+</div>

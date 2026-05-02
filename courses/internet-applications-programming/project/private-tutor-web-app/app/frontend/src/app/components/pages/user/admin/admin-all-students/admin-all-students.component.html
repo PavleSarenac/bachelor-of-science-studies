@@ -1,0 +1,26 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-admin-header></app-admin-header>
+  <div class="row main" *ngIf="shouldLoadContent && !doActiveStudentsExist">
+    <div class="alert alert-dark" role="alert">
+      <b>There are no active students.</b>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 g-4 main" *ngIf="shouldLoadContent && doActiveStudentsExist">
+    <div class="col" *ngFor="let data of allStudentsData">
+      <div class="card h-100">
+        <img [src]="data.profilePictureUrl" class="card-img-top img-fluid" alt="Profile Picture">
+        <div class="card-body">
+          <h5 class="card-title text-center"><b>{{data.student.name}} {{data.student.surname}}</b></h5>
+        </div>
+        <ul class=" list-group list-group-flush">
+          <li class="list-group-item"><b>Address:</b> &nbsp;{{data.student.address}}</li>
+          <li class="list-group-item"><b>Email:</b> &nbsp;{{data.student.email}}</li>
+          <li class="list-group-item"><b>Phone:</b> &nbsp;{{data.student.phone}}</li>
+          <li class="list-group-item"><b>School type:</b> &nbsp;{{data.student.schoolType}}</li>
+          <li class="list-group-item"><b>Current grade:</b> &nbsp;{{data.student.currentGrade}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

@@ -1,0 +1,26 @@
+nalozi:
+
+studenti: [
+	{
+		username: dovla,
+		password: Dovla123!
+	},
+	{
+		username: pavle,
+		password: Pavle123!
+	}
+]
+
+nastavnici: [
+	{
+		username: voja,
+		password: Voja123!
+	}
+]
+
+admin: [
+	{
+		username: vlajko,
+		password: Vlajko123!
+	}
+]

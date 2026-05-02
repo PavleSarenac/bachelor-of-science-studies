@@ -1,0 +1,85 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-student-header></app-student-header>
+  <div class="row main bg-dark rounded">
+    <ng-container *ngIf="relevantClasses.length > 0 && initializationDone">
+      <div class="col-sm-12 text-center text-white fw-bold mt-3 mb-3 fs-2">
+        Notifications:
+      </div>
+      <ng-container *ngFor="let class of relevantClasses">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 mb-2 text-center">
+          <button class="btn" (click)="readNotification(class)" data-bs-toggle="modal"
+            [attr.data-bs-target]="'#class' + class.id">
+            <div class="alert mt-3 fs-5" [class.alert-danger]="!class.isNotificationRead && class.isClassCancelled"
+              [class.alert-warning]="!class.isNotificationRead && class.isClassRejected"
+              [class.alert-success]="!class.isNotificationRead && (class.isClassAccepted || class.isClassDone)"
+              [class.alert-dark]="class.isNotificationRead" role="alert">
+              <p>New notification from {{class.teacherName}} {{class.teacherSurname}}.</p>
+              <hr>
+              <p class="mb-0 text-end">{{class.decisionDate}}, {{class.decisionTime.substring(0,
+                class.decisionTime.indexOf("."))}}</p>
+            </div>
+          </button>
+        </div>
+        <div class="col-sm-2"></div>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="relevantClasses.length == 0 && initializationDone">
+      <div class="col-sm-12 text-center text-white mt-3 fw-bold mb-3">
+        You don't have any notifications.
+      </div>
+    </ng-container>
+  </div>
+  <app-footer></app-footer>
+</div>
+<div class="modal fade" *ngFor="let class of relevantClasses" [id]="'class' + class.id" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" [id]="'class' + class.id">
+          <ng-container *ngIf="class.isClassAccepted || class.isClassDone">
+            Your class request is accepted.
+          </ng-container>
+          <ng-container *ngIf="class.isClassRejected">
+            Your class request is rejected.
+          </ng-container>
+          <ng-container *ngIf="class.isClassCancelled">
+            Your class is cancelled.
+          </ng-container>
+        </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-start">
+        <div class="col-sm-12">
+          Teacher: {{class.teacherName}} {{class.teacherSurname}}
+        </div>
+        <div class="col-sm-12">
+          Subject: {{class.subject}}
+        </div>
+        <div class="col-sm-12">
+          Date: {{class.startDate}}
+        </div>
+        <div class="col-sm-12">
+          Time: {{class.startTime}}-{{class.endTime}}
+        </div>
+        <ng-container *ngIf="class.isClassRejected">
+          <div class="col-sm-12">
+            Rejection explanation: <br>
+            <p class="text-break">
+              {{class.rejectionReason}}
+            </p>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="class.isClassCancelled">
+          <div class="col-sm-12">
+            Cancellation explanation: <br>
+            <p class="text-break">
+              {{class.cancellationReason}}
+            </p>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+export class Class {
+  id: number = 0
+  studentUsername: string = ""
+  teacherUsername: string = ""
+  subject: string = ""
+  startDate: string = ""
+  endDate: string = ""
+  startTime: string = ""
+  endTime: string = ""
+  description: string = ""
+  isClassAccepted: boolean = false
+  isClassRejected: boolean = false
+  isClassCancelled: boolean = false
+  decisionDate: string = ""
+  decisionTime: string = ""
+  isNotificationRead: boolean = false
+  isClassDone: boolean = false
+  didClassRequestExpire: boolean = false
+  rejectionReason: string = ""
+  cancellationReason: string = ""
+  studentToTeacherComment: string = ""
+  studentToTeacherGrade: number = 0
+  teacherToStudentComment: string = ""
+  teacherToStudentGrade: number = 0
+
+  studentName: string = ""
+  studentSurname: string = ""
+  teacherName: string = ""
+  teacherSurname: string = ""
+  studentAverageGrade: number = 0
+}

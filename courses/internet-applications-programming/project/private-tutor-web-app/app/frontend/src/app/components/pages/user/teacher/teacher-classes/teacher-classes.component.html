@@ -1,0 +1,344 @@
+<div class="container-fluid vh-100 overflow-auto">
+  <app-teacher-header></app-teacher-header>
+  <div class="row main bg-dark rounded">
+    <div class="col-sm-12 text-white fw-bold text-center mb-3 mt-3 fs-3">
+      Your calendar:
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center">
+      <div class="btn-group mt-3 mb-4" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showCalendar()">
+          Show calendar
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="hideCalendar()">
+          Hide calendar
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+  </div>
+  <div class="row main bg-light" *ngIf="calendarVisible()">
+    <div class="col-sm-12 bg-light">
+      <full-calendar [options]='calendarOptions()'>
+        <ng-template #eventContent let-arg>
+          <b>{{ arg.timeText }}</b>&nbsp;
+          <i>{{ arg.event.title }}</i>
+        </ng-template>
+      </full-calendar>
+    </div>
+  </div>
+  <div class="row main bg-dark rounded">
+    <div class="col-sm-12 text-white fw-bold text-center mt-3 fs-3">
+      Upcoming classes for the next 3 days:
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center">
+      <div class="btn-group mt-3 mb-4" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showFirstFiveUpcomingClasses()">
+          Show first 5
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="showFirstTenUpcomingClasses()">
+          Show first 10
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="showAllUpcomingClasses()">
+          Show all
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="hideUpcomingClasses()">
+          Hide upcoming classes
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <ng-container *ngIf="shouldShowUpcomingClasses && allUpcomingClasses.length != 0">
+      <div class="col-sm-12">
+        <table class="table table-dark table-bordered table-striped table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col" class="w-14">Student</th>
+              <th scope="col" class="w-14">Subject</th>
+              <th scope="col" class="w-14">Student's Class Description</th>
+              <th scope="col" class="w-14">Date</th>
+              <th scope="col" class="w-14">Time</th>
+              <th scope="col" class="w-14">Join class</th>
+              <th scope="col" class="w-14">Cancel class</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="shouldShowFirstFiveUpcomingClasses">
+              <tr *ngFor="let upcomingClass of firstFiveUpcomingClasses" class="text-center">
+                <td class="align-middle">{{upcomingClass.studentName}} {{upcomingClass.studentSurname}}</td>
+                <td class="align-middle">{{upcomingClass.subject}}</td>
+                <td class="align-middle" *ngIf="upcomingClass.description != ''">{{upcomingClass.description}}</td>
+                <td class="align-middle" *ngIf="upcomingClass.description == ''">-</td>
+                <td class="align-middle">{{upcomingClass.startDate}}</td>
+                <td class="align-middle">{{upcomingClass.startTime}}-{{upcomingClass.endTime}}</td>
+                <td class="align-middle">
+                  <button class="btn btn-light"
+                    *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) <= 15"
+                    (click)="joinClass()">Join</button>
+                  <span *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) > 15">
+                    Can't join yet.
+                  </span>
+                </td>
+                <td class="align-middle">
+                  <button class="btn btn-light"
+                    *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) > 240"
+                    data-bs-toggle="modal" [attr.data-bs-target]="'#upcomingClass' + upcomingClass.id">Cancel</button>
+                  <span *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) <= 240">
+                    Can't cancel now.
+                  </span>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="shouldShowFirstTenUpcomingClasses">
+              <tr *ngFor="let upcomingClass of firstTenUpcomingClasses" class="text-center">
+                <td class="align-middle">{{upcomingClass.studentName}} {{upcomingClass.studentSurname}}</td>
+                <td class="align-middle">{{upcomingClass.subject}}</td>
+                <td class="align-middle" *ngIf="upcomingClass.description != ''">{{upcomingClass.description}}</td>
+                <td class="align-middle" *ngIf="upcomingClass.description == ''">-</td>
+                <td class="align-middle">{{upcomingClass.startDate}}</td>
+                <td class="align-middle">{{upcomingClass.startTime}}-{{upcomingClass.endTime}}</td>
+                <td class="align-middle">
+                  <button class="btn btn-light"
+                    *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) <= 15">Join</button>
+                  <span *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) > 15">
+                    Can't join yet.
+                  </span>
+                </td>
+                <td class="align-middle">
+                  <button class="btn btn-light"
+                    *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) > 240"
+                    data-bs-toggle="modal" [attr.data-bs-target]="'#upcomingClass' + upcomingClass.id">Cancel</button>
+                  <span *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) <= 240">
+                    Can't cancel now.
+                  </span>
+                </td>
+              </tr>
+            </ng-container>
+            <ng-container *ngIf="shouldShowAllUpcomingClasses">
+              <tr *ngFor="let upcomingClass of allUpcomingClasses" class="text-center">
+                <td class="align-middle">{{upcomingClass.studentName}} {{upcomingClass.studentSurname}}</td>
+                <td class="align-middle">{{upcomingClass.subject}}</td>
+                <td class="align-middle" *ngIf="upcomingClass.description != ''">{{upcomingClass.description}}</td>
+                <td class="align-middle" *ngIf="upcomingClass.description == ''">-</td>
+                <td class="align-middle">{{upcomingClass.startDate}}</td>
+                <td class="align-middle">{{upcomingClass.startTime}}-{{upcomingClass.endTime}}</td>
+                <td class="align-middle">
+                  <button class="btn btn-light"
+                    *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) <= 15">Join</button>
+                  <span *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) > 15">
+                    Can't join yet.
+                  </span>
+                </td>
+                <td class="align-middle">
+                  <button class="btn btn-light"
+                    *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) > 240"
+                    data-bs-toggle="modal" [attr.data-bs-target]="'#upcomingClass' + upcomingClass.id">Cancel</button>
+                  <span *ngIf="getTimeDifferenceInMinutes(upcomingClass.startDate, upcomingClass.startTime) <= 240">
+                    Can't cancel now.
+                  </span>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <div class="modal fade" *ngFor="let upcomingClass of allUpcomingClasses"
+          [id]="'upcomingClass' + upcomingClass.id" tabindex="-1" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" [id]="'upcomingClass' + upcomingClass.id">
+                  Why are you cancelling {{upcomingClass.studentName}} {{upcomingClass.studentSurname}}'s
+                  {{upcomingClass.subject}} class?
+                </h1>
+                <button type=" button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <textarea class="form-control" cols="15" rows="5"
+                      [(ngModel)]="upcomingClass.cancellationReason"></textarea>
+                  </div>
+                  <div class="col-sm-12 text-danger" *ngIf="upcomingClass.cancellationReason == ''">
+                    {{cancellationExplanationError}}
+                  </div>
+                  <div class="col-sm-12 text-success" *ngIf="upcomingClass.cancellationReason != ''">
+                    {{successMessage}}
+                  </div>
+                  <div class="col-sm-12 text-center mt-4 mb-3" *ngIf="upcomingClass.cancellationReason != ''">
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
+                      (click)="cancel(upcomingClass)">Confirm</button>
+                  </div>
+                  <div class="col-sm-12 text-center mt-4 mb-3" *ngIf="upcomingClass.cancellationReason == ''">
+                    <button type="button" class="btn btn-dark">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="shouldShowUpcomingClasses && allUpcomingClasses.length == 0">
+      <div class="col-sm-12 text-center text-white fw-bold mb-3">
+        There are no upcoming classes.
+      </div>
+    </ng-container>
+    <div class="col-sm-12 text-white fw-bold text-center mt-3 fs-3">
+      Change your worktime:
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center">
+      <div class="btn-group mt-3 mb-3" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showWorktimeForm()">Show worktime form</button>
+        <button type="button" class="btn btn-outline-light" (click)="hideWorktimeForm()">Hide worktime form</button>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <ng-container *ngIf="shouldShowWorktimeForm">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 mt-3 mb-3">
+        <label for="input-day" class="form-label text-white">
+          Define your working days
+        </label>
+        <select class="form-control choices-multiple" multiple id="input-day" [(ngModel)]="workingDays">
+          <option *ngFor="let day of daysInAWeek">{{day}}</option>
+        </select>
+        <span *ngIf="workingDays.length == 0" class="text-danger small">{{workingDaysError}}</span>
+        <span *ngIf="workingDays.length != 0" class="text-success small">{{successMessage}}</span>
+      </div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 mb-3">
+        <label for="input-time-start" class="form-label text-white">Define the start of your workday</label>
+        <input type="time" id="input-time-start" class="form-control" step="1800" [(ngModel)]="worktimeStart"
+          [class.is-invalid]="worktimeStart == ''" [class.is-valid]="worktimeStart != ''">
+        <div class="invalid-feedback">
+          {{worktimeStartError}}
+        </div>
+        <div class="valid-feedback">
+          {{successMessage}}
+        </div>
+      </div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 mb-3">
+        <label for="input-time-end" class="form-label text-white">Define the end of your workday</label>
+        <input type="time" id="input-time-end" class="form-control" step="1800" [(ngModel)]="worktimeEnd"
+          [class.is-invalid]="worktimeEnd == ''" [class.is-valid]="worktimeEnd != ''">
+        <div class="invalid-feedback">
+          {{worktimeEndError}}
+        </div>
+        <div class="valid-feedback">
+          {{successMessage}}
+        </div>
+      </div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6 mb-3 text-center">
+        <button class="btn btn-light" (click)="updateWorktime()">Update your worktime</button>
+      </div>
+      <div class="col-sm-3"></div>
+    </ng-container>
+    <div class="col-sm-12 text-white fw-bold text-center mt-5 fs-3">
+      Respond to new class requests:
+    </div>
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6 text-center">
+      <div class="btn-group mt-3 mb-3" role="group">
+        <button type="button" class="btn btn-outline-light" (click)="showPendingClassRequests()">
+          Show pending class requests
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="hidePendingClassRequests()">
+          Hide pending class requests
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    <ng-container *ngIf="shouldShowPendingClassRequests && pendingClassRequests.length != 0">
+      <div class="col-sm-12">
+        <table class="table table-dark table-bordered table-striped table-hover">
+          <thead>
+            <tr class="text-center">
+              <th scope="col" class="w-14">Student</th>
+              <th scope="col" class="w-14">Subject</th>
+              <th scope="col" class="w-14">Student's Class Description</th>
+              <th scope="col" class="w-14">Student's Average Rating</th>
+              <th scope="col" class="w-14">Date</th>
+              <th scope="col" class="w-14">Time</th>
+              <th scope="col" class="w-14">Decision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let classRequest of pendingClassRequests" class="text-center">
+              <td class="align-middle">{{classRequest.studentName}} {{classRequest.studentSurname}}</td>
+              <td class="align-middle">{{classRequest.subject}}</td>
+              <td class="align-middle" *ngIf="classRequest.description != ''">{{classRequest.description}}</td>
+              <td class="align-middle" *ngIf="classRequest.description == ''">-</td>
+              <td class="align-middle" *ngIf="classRequest.studentAverageGrade != 0">
+                {{classRequest.studentAverageGrade | number:"1.2-2"}} &nbsp;
+                <app-star-rating-view [rating]="classRequest.studentAverageGrade"></app-star-rating-view>
+              </td>
+              <td class="align-middle" *ngIf="classRequest.studentAverageGrade == 0">-</td>
+              <td class="align-middle">{{classRequest.startDate}}</td>
+              <td class="align-middle">{{classRequest.startTime}}-{{classRequest.endTime}}</td>
+              <td class="align-middle">
+                <div class="btn-group mt-3 mb-3" role="group">
+                  <button type="button" class="btn btn-outline-light" (click)="accept(classRequest)">
+                    Accept
+                  </button>
+                  <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                    [attr.data-bs-target]="'#classRequest' + classRequest.id">
+                    Reject
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="modal fade" *ngFor="let classRequest of pendingClassRequests"
+          [id]="'classRequest' + classRequest.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" [id]="'classRequest' + classRequest.id">
+                  Why are you rejecting {{classRequest.studentName}} {{classRequest.studentSurname}}'s class
+                  request?
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <textarea class="form-control" cols="15" rows="5"
+                      [(ngModel)]="classRequest.rejectionReason"></textarea>
+                  </div>
+                  <div class="col-sm-12 text-danger" *ngIf="classRequest.rejectionReason == ''">
+                    {{rejectionExplanationError}}
+                  </div>
+                  <div class="col-sm-12 text-success" *ngIf="classRequest.rejectionReason != ''">
+                    {{successMessage}}
+                  </div>
+                  <div class="col-sm-12 text-center mt-4 mb-3" *ngIf="classRequest.rejectionReason != ''"
+                    data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-dark" (click)="reject(classRequest)">Confirm</button>
+                  </div>
+                  <div class="col-sm-12 text-center mt-4 mb-3" *ngIf="classRequest.rejectionReason == ''">
+                    <button type="button" class="btn btn-dark">Confirm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="shouldShowPendingClassRequests && pendingClassRequests.length == 0">
+      <div class="col-sm-12 text-center text-white fw-bold mb-3">
+        There are no pending class requests.
+      </div>
+    </ng-container>
+  </div>
+  <app-footer></app-footer>
+</div>
