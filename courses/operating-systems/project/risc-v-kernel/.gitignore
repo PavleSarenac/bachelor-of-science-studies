@@ -1,0 +1,15 @@
+.d
+.lst
+.o
+
+kernel
+kernel.asm
+kernel.ld
+
+.gdbinit.tmpl-riscv
+.gdbinit
+LICENSE
+
+build/
+
+.idea
