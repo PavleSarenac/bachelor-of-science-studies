@@ -1,0 +1,154 @@
+/* Pavle Sarenac */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 60%;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.forma {
+    background-color: #f2f2f2;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0px;
+    border: 1px solid #cccccc;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    background-color: black;
+    color: yellow;
+    padding: 14px 20px;
+    margin: 8px 0px;
+    border: none;
+    cursor: pointer;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+    color: darkslategray;
+}
+
+a:hover, a:active {
+    color: forestgreen;
+}
+
+.greska {
+    color : red;
+}
+
+#artikli {
+    background-color: palegreen;
+    text-align: center;
+    padding: 5px;
+}
+
+img {
+    width: 125px;
+    height: 125px;
+    border: 5px solid darkslategray;
+    margin: 5px;
+}
+
+#filteri {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.chat-card {
+    margin-top: 50px;
+    border-radius: 10px;
+    border: none;
+  }
+  
+.chat-header {
+background-color: #f8f9fa;
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+border-bottom: none;
+}
+
+.chat-body {
+background-color: #cfd0d1;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+overflow-y: scroll;
+height: 400px;
+}
+
+.chat-messages {
+padding: 0;
+margin: 0;
+}
+
+.message {
+margin-bottom: 15px;
+}
+
+.message-reverse {
+margin-bottom: 15px;
+}
+
+.message-wrapper {
+display: flex;
+align-items: flex-end;
+justify-content: flex-start;
+}
+
+.message-wrapper-reverse {
+display: flex;
+align-items: flex-end;
+justify-content: flex-end;
+}
+
+.message-content {
+background-color: yellow;
+color: black;
+padding: 10px;
+border-radius: 10px;
+max-width: 75%;
+}
+
+.message-reverse .message-content {
+background-color: white;
+color: black;
+}
+
+.message-time {
+margin-left: 10px;
+font-size: 0.8rem;
+}
+
+.chat-footer {
+background-color: #f8f9fa;
+border-top: none;
+border-bottom-left-radius: 10px;
+border-bottom-right-radius: 10px;
+}
+
+.chat-footer form {
+padding: 10px;
+}
+
+.chat-footer input {
+border-radius: 10px;
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+}
+
+.chat-footer button {
+border-radius: 10px;
+border-top-left-radius: 0;
+border-bottom-left-radius: 0;
+background-color: black;
+color: yellow;
+}

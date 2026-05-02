@@ -1,0 +1,173 @@
+/*
+Autori: 
+Ljubica Majstorovic 2020/0253
+Nikola Nikolic 2020/0357
+Pavle Sarenac 2020/0359
+*/
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 100%;
+    background-color: lightgray;
+}
+
+.badgeMy {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 75%;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.aspect-ratio {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    /* Set the aspect ratio to 1:1 (square) */
+    overflow: hidden;
+}
+
+.card-img-top-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+input.star {
+    display: none;
+    /* Hide the default radio button */
+}
+
+.alert {
+    word-wrap: break-word;
+}
+
+input.star+label::before {
+    content: '\2605';
+    /* Insert star symbol (☆) */
+    display: inline-block;
+    font-size: 2rem;
+    color: white;
+}
+
+input.star:checked+label::before {
+    content: '\2605';
+    /* Insert filled star symbol (★) when checked */
+    color: gold;
+    /* Change the color of the filled star */
+}
+
+
+.text-italic {
+    font-style: italic;
+}
+
+.btn-down {
+    width: 30rem;
+}
+
+.btn-side {
+    width: 15rem;
+}
+
+.dropdown-menu {
+    background-color: black;
+}
+
+.dropdown-item {
+    color: yellow;
+}
+
+.majstorLink {
+    color: black;
+    text-decoration: none;
+}
+
+.majstorLink:link {
+    color: black;
+    text-decoration: none;
+}
+
+.form-select {
+    font-size: medium;
+}
+
+#selectOptionPlaceholder {
+    color: gray;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.errorMessages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+}
+
+.text-yellow {
+    color: yellow;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30rem;
+}
+
+.btn:hover {
+    color: yellow;
+}
+
+#emptyUserFooter {
+    height: 3rem;
+}
+
+input[type=text],
+input[type=password],
+select {
+    padding: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+button {
+    background-color: black;
+    color: yellow;
+    margin: 0.5rem;
+}
+
+a.heading-link:link,
+a.heading-link:visited,
+a.heading-link:hover {
+    color: yellow;
+    text-decoration: none;
+}
+
+img {
+    width: 8rem;
+    height: 8rem;
+}
+
+.error-text {
+    color: red;
+}

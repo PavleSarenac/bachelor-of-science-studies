@@ -1,0 +1,21 @@
+КОРИШЋЕНИ АЛАТИ НА ПРОЈЕКТУ "MajstorNaKlik"
+
+1. фаза
+Microsoft Word(Office 2016) - креирање документације
+
+2. фаза 
+Visual Studio Code 1.78 (алат) - креирање прототипа у HTML5 и CSS3 (коришћена је библиотека Bootstrap5) технологијама
+Microsoft Word(Office 2016) - креирање SSU-ова
+
+3. фаза
+Microsoft Word(Office 2016) - креирање FR извештаја
+
+4. фаза 
+Erwin Data Modeler 12.1 - модел базе
+Microsoft Word(Office 2016) - креирање документације за спецификацију базе 
+
+5. фаза
+WAMP64 Server - креирање sql сервера и скрипте која се користи
+Visual Studio Code 1.78 (алат) - 
+	веб странице рађене у технологијама HTML5, CSS3(Bootstrap5), JavaScript(jQuery, у оквиру којег је коришћен и AJAX), PHP(framework CodeIgniter4)
+

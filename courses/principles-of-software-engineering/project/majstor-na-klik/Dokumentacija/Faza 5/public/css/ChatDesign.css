@@ -1,0 +1,90 @@
+/*
+Autori:
+Nikola Nikolic 2020/0357
+*/
+/* Chat box container */
+.cont {
+  max-width: 60vw;
+  margin: 3vh auto;
+  padding: 20px;
+  background-color: #f6f6f6;
+}
+
+/* Chat messages */
+.chat-box {
+  height: 60vh;
+  width: auto;
+  overflow-y: scroll;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: white;
+
+}
+
+/* Individual message */
+.message {
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 8px;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+
+/* Your message */
+.message.your-message {
+  text-align: right;
+  background-color: #f4f8c6;
+}
+
+/* Other users' messages */
+.message.other-message {
+  text-align: left;
+  background-color: #f1f0f0;
+}
+
+/* Username */
+.usernameChat {
+  font-weight: bold;
+  color: #101100;
+}
+
+/* Message content */
+.contentChat {
+  margin-left: 10px;
+  word-wrap: break-word;
+}
+
+/* Timestamp */
+.timestampChat {
+  position: absolute;
+  bottom: -18px;
+  right: 0;
+  font-size: 12px;
+  color: #999;
+}
+
+/* Input box */
+.input-box {
+  display: flex;
+}
+
+/* Message input field */
+#message-input-chat {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+/* Your message timestamp alignment */
+.message.your-message .timestampChat {
+  right: 0;
+}
+
+/* Other users' messages timestamp alignment */
+.message.other-message .timestampChat {
+  left: 0;
+}
