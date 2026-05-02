@@ -1,0 +1,338 @@
+=========================================================================================================================
+Invalidating protocols
+=========================================================================================================================
+WTI (Write-Through Invalidate) No-Allocate
+----------------------------------------------------------
+1) 
+Brojevi pristupa operativnoj memoriji od strane naših 4 procesora su sledeći:
+	- P0: 3
+	- P1: 4
+	- P2: 2
+	- P3 1
+	
+Hit rate ću računati kao (numberOfCacheHits / numberOfRequests) * 100%, gde numberOfCacheHits predstavlja broj zahteva
+koji su mogli da budu opsluženi pristupajući samo keš memoriji (bez pristupa operativnoj memoriji), a numberOfRequests
+predstavlja ukupan broj zahteva upućenih memoriji (nezavisno od toga da li se pristupalo operativnoj memoriji ili ne). Ukoliko se
+u ovom protokolu dogodi Write-Hit, tada neću inkrementirati numberOfCacheHits, tj. to neću računati kao pogodak u kešu, zato
+što se i tada pristupa operativnoj memoriji. Zato, jedina od ovih situacija (Read-Hit, Read-Miss, Write-Hit, Write-Miss) zbog koje 
+ću inkrementirati numberOfCacheHits jeste Read-Hit jer se jedino kod nje uopšte ne pristupa operativnoj memoriji, već se zahtev 
+kompletno opslužuje samo pristupajući keš memoriji.
+
+Hit rate-ovi naših procesora su onda za datu sekvencu sledeći:
+	- P0: 0/3 (0%)
+	- P1: 0/4 (0%)
+	- P2: 0/2 (0%)
+	- P3: 0/1 (0%)
+
+2)
+U koraku 3 se prilikom upisa procesora P1 u blok A0 ažurira operativna memorija, pri čemu se taj blok ne dovlači u keš jer je u 
+pitanju no-allocate varijanta WTI protokola.
+
+Akcija procesora P1:
+P1: I -- (PrWr/BusWr) --> I
+
+Reakcije drugih procesora:
+P2: V -- (BusWr/--) --> I 
+
+3)
+U koraku 4 se događa Read-Miss zato što procesor P0 ne pronalazi blok A0 u svojoj keš memoriji za čitanje.
+
+Akcija procesora P0:
+P0: I -- (PrRd/BusRd) --> V
+
+Reakcije drugih procesora:
+Nema
+
+4)
+U koraku 5 se ne vrši dohvatanje bloka A2 prilikom upisa procesora P1 u taj blok zato što je u pitanju no-allocate varijanta
+WTI protokola.
+
+Akcija procesora P1:
+P1: I -- (PrWr/BusWr) --> I
+
+Reakcije drugih procesora:
+Nema
+
+5)
+Da bi blok A2 u koraku 5 bio dovučen u keš memoriju, treba iskoristiti allocate varijantu WTI protokola jer se kod nje prilikom
+upisa u neki blok koji procesor nema u svom kešu taj blok prvo dovuče iz operativne memorije (BusRd), a zatim se ažurira blok
+i u kešu i u operativnoj memoriji (BusWr). Tada bi akcija procesora P1 izgledala ovako:
+
+P1: I -- (PrWr/BusRd; BusWr) --> V
+
+WTI protokol ima loše performanse zato što koristi Write-Through strategiju pri upisu (kod nje je neophodno da se pri svakom 
+upisu u bilo koji blok od strane bilo kog procesora pristupi i operativnoj memoriji kako bi ona uvek imala ažurne podatke). Zbog
+toga se događa mnogo nepotrebnih pristupa operativnoj memoriji kod ovog protokola.
+
+Ovu pojavu je moguće ublažiti koristeći Write-Back (odloženi upis u operativnu memoriju) umesto Write-Through strategije 
+prilikom upisa. Odloženi upis se omogućava uvođenjem koncepta vlasništva. Kada je procesor vlasnik nekog bloka, to znači da on 
+jedini ima ažurne vrednosti tog bloka u čitavom sistemu (dakle niti operativna memorija, niti keševi drugih procesora kod sebe 
+nemaju ažurne vrednosti tog bloka) - ukoliko taj procesor zatraži čitanje ili upis u taj blok, obe operacije će se izvršiti lokalno
+u njegovom kešu bez pristupa operativnoj memoriji. Tada taj procesor ima kompletnu odgovornost za taj blok - ukoliko neki drugi 
+procesor zatraži čitanje tog bloka, on treba da mu ga dostavi. Takođe, ukoliko se dogodi zamena tog bloka, procesor je 
+dužan da pre zamene uradi Flush, tj. da upiše taj blok u operativnu memoriju kako se ne bi trajno izgubile ažurne vrednosti.
+=========================================================================================================================
+MSI (Modified-Shared-Invalid)
+----------------------------------------
+6)
+U koracima 3 i 5 se upravo primećuje da se kod WTI protokola koristi Write-Through strategija, a kod MSI protokola Write-Back
+strategija pri upisu.
+
+7)
+Blok A0 u kešu procesora P1 će nakon koraka 3 preći iz stanja I u stanje M zato što je procesor P1 zatražio upis u ovaj blok, što 
+znači da će se upis (nakon dohvatanja bloka iz operativne memorije i poništavanja kopija ovog bloka u keševima drugih procesora) 
+obaviti lokalno u njegovom kešu i time će on postati vlasnik bloka - jedini će imati ažurne vrednosti bloka u čitavom sistemu.
+
+Akcija procesora P1:
+P1: I -- (PrWr/BusRdX) --> M
+
+Reakcije drugih procesora:
+P0: S -- (BusRdX/--) --> I
+P2: S -- (BusRdX/--) --> I
+
+8)
+Blok A0 u kešu procesora P0 će nakon koraka 4 preći iz stanja I u stanje S zato što je procesor P0 zatražio čitanje ovog bloka,
+što znači da će ovaj blok postati deljen između keševa procesora P0 i P1 (jer je u koraku 3 procesor P1 bio vlasnik ovog bloka, a
+sada će nakon koraka 4 i on preći u stanje S i pri tom ažurirati i operativnu memoriju). Procesor P0 može da pročita blok iz
+operativne memorije, a može i da mu ga dostavi preko magistrale procesor P1 prilikom obavljanja Flush operacije (u simulatoru
+se ovo dogodi).
+
+Akcija procesora P0:
+P0: I -- (PrRd/BusRd) --> S
+
+Reakcije drugih procesora:
+P1: M -- (BusRd/Flush) --> S
+
+9)
+U koraku 2 dolazi do ažuriranja bloka A0 u operativnoj memoriji zato što je procesor P2 zatražio ovaj blok za čitanje, a nema ga
+ni u svom kešu, niti može da ga pronađe u operativnoj memoriji pošto je nakon koraka 1 procesor P0 postao vlasnik bloka. Zato
+nakon koraka 2 procesor P0 mora da uradi Flush operaciju prilikom koje ažurira operativnu memoriju kako bi procesor P2 mogao
+da dohvati taj blok za čitanje (u simulatoru procesor P0 prilikom Flush operacije dostavi preko magistrale direktno procesoru
+P2 blok, tako da ga procesor P2 ne dohvata iz operativne memorije). 
+
+Akcija procesora P2:
+P2: I -- (PrRd/BusRd) --> S
+
+Reakcije drugih procesora:
+P0: M -- (BusRd/Flush) --> S
+
+Ovde se uočava mana MSI protokola - kada je neki blok u stanju M i neko drugi ga zatraži za čitanje, uvek se radi Flush, tj. 
+ažuriranje operativne memorije. Bilo bi bolje kada bi mogao samo da se uradi transfer bloka preko magistrale u ovoj situaciji
+i da se tako uopšte ne pristupa operativnoj memoriji, međutim tako bismo se našli u opasnoj situaciji jer bi u tom trenutku dati
+blok bio u stanju S u keševima dva procesora, pri čemu nijedan procesor očigledno onda ne bi bio vlasnik bloka, a u memoriji
+blok nije ažuran jer nije uradjen Flush. Sada, ako bi se dogodila zamena bloka u keševima oba procesora, trajno bismo izgubili
+ažurne vrednosti bloka jer niko nema odgovornost da u tom slučaju ažurira operativnu memoriju i time bi sistem ušao u 
+nekonzistentno stanje. Zato je kod MSI protokola neophodno da uvek memorija bude ažurna kada je blok u jednom ili više keševa 
+u stanju S. Sve isto važi i za MESI protokol. Ovaj problem je ublažen kod MOESI protokola uvođenjem stanja O koje ima 
+semantiku vlasništva i na taj način omogućava da više keševa deli isti blok a da memorija bude neažurna - tako se uspešno dodatno
+odlaže upis u operativnu memoriju i zato je MOESI protokol u ovoj konkretnoj situaciji superiorniji u odnosu na MSI i MESI
+protokole.
+=========================================================================================================================
+MESI (Modified-Exclusive-Shared-Invalid)
+------------------------------------------------------
+10)
+U koraku 2, kada procesor P2 zatraži blok A0 za čitanje, dostaviće mu ga procesor P0 direktno preko magistrale zato što je on
+nakon koraka 1 postao vlasnik tog bloka i zato će nakon koraka 2 uraditi Flush operaciju nakon koje će blok u njegovom kešu preći
+u stanje S. Jasno je da će kod procesora P2 blok A0 biti učitan u stanju S.
+
+Akcija procesora P2:
+P2: I -- (PrRd/BusRd) --> S
+
+Reakcije drugih procesora:
+P0: M -- (BusRd/Flush) --> S
+
+
+11)
+U koraku 3, prilikom upisa procesora P1 u blok A0, on će prvo dobiti tekući ažuran blok od procesora P0 preko magistrale jer
+je kod njega taj blok u stanju S (takođe je i kod procesora P2 u stanju S, ali je naravno dovoljno da samo jedan procesor uradi
+transfer), pri čemu će procesori P0 i P2 u svojim keševima promeniti stanje bloka A0 iz S u I, a zatim će procesor P1 upisati u
+blok A0 samo u svom kešu i promeniti stanje tog bloka iz I u M.
+
+Akcija procesora P1:
+P1: I -- (PrWr/BusRdX) --> M
+
+Reakcije drugih procesora:
+P0: S -- (BusRdX/--) --> I
+P2: S -- (BusRdX/--) --> I
+
+Odlučivanje koji procesor će uraditi transfer bloka u slučajevima kada postoji više keševa kod kojih je blok u stanju S se može
+uraditi na više načina:
+	* Uvođenjem novog stanja F (Forwarding) u kojem će biti blok samo kod procesora koji je zadužen za transfer tog bloka 
+	(MESIF varijanta MESI protokola).
+	* Arbitracijom na magistrali.
+	* Svi procesori u stanju S stavljaju blok na magistralu (tada je neophodno da magistrala podržava istovremeno stavljanje
+	identičnog podatka na nju).
+	
+12)
+Blok A2 će biti u stanju M u kešu procesora P1 nakon koraka 5 zato što je procesor P1 zatražio upis u taj blok, što znači da ga
+onda prvo dohvata iz operativne memorije, a zatim upisuje samo lokalno u svom kešu - on postaje vlasnik tog bloka. Prilikom ovog
+upisa, dogodiće se zamena bloka A0 blokom A2 u kešu ovog procesora.
+
+Akcija procesora P1:
+P1: I -- (PrWr/BusRdX) --> M
+
+Reakcije drugih procesora:
+Nema
+
+13)
+Nakon koraka 5, prilikom čitanja bloka A2 od strane procesora P1 se ne vrše nikakve akcije protokola jer je taj blok kod njega
+u stanju M što znači da je ažuran, pa ga on čita iz svog keša bez ikakvog izlaska na magistralu. Čak i da je došlo do upisa od strane
+procesora P1 u ovom koraku umesto čitanja, ne bi se izvršile nikakve akcije protokola ni tada.
+
+Akcije procesora P1:
+P1: M -- (PrRd/--) --> M
+
+Reakcije drugih procesora:
+Nema
+=========================================================================================================================
+MOESI (Modified-Owned-Exclusive-Shared-Invalid)
+------------------------------------------------------------------
+14)
+Nakon koraka 3, blok A0 će biti u stanju M u kešu procesora P1 zato što je on zatražio upis u taj blok, pa će mu prvo procesor P0
+u čijem kešu je ovaj blok u stanju O dostaviti tekući ažuran blok preko magistrale (jer je za transfere kod MOESI protokola
+zadužen onaj procesor kod koga je blok u stanju O), a zatim će i procesor P0 i procesor P2 (kod koga je ovaj blok trenutno u stanju
+S) promeniti stanje ovog bloka u I, nakon čega će procesor P1 upisati u ovaj blok samo lokalno u svom kešu i time postati njegov
+vlasnik.
+
+Akcija procesora P1:
+P1: I -- (PrWr/BusRdX) --> M
+
+Reakcije drugih procesora:
+P0: O -- (BusRdX/Flush) --> I
+P2: S -- (BusRdX/--) --> I
+
+15)
+Nakon koraka 4, blok A0 će biti u stanju O u kešu procesora P1 zato što je procesor P0 zatražio čitanje tog bloka, a procesor P1
+je bio njegov vlasnik pre ovog koraka, pa će mu on dostaviti blok preko magistrale i preći iz stanja M u stanje O, tako da u koraku
+4 uopšte nema pristupa operativnoj memoriji i ovo je upravo situacija u kojoj je MOESI protokol dosta bolji od MSI i MESI 
+protokola. Blok će u kešu procesora P0 preći iz stanja I u stanje S.
+
+Akcija procesora P0:
+P0: I -- (PrRd/BusRd) --> S
+
+Reakcije drugih procesora:
+P1: M -- (BusRd/Transfer) --> O
+
+16)
+Nakon koraka 8, blok A2 će biti u stanju O u kešu procesora P1 zato što je procesor P0 zatražio čitanje tog bloka, a procesor P1
+je bio njegov vlasnik pre ovog koraka, pa će mu on dostaviti blok preko magistrale i preći iz stanja M u stanje O, tako da u koraku
+8 uopšte nema pristupa operativnoj memoriji i ovo je upravo situacija u kojoj je MOESI protokol dosta bolji od MSI i MESI 
+protokola. Blok će u kešu procesora P0 preći iz stanja I u stanje S.
+
+Akcija procesora P0:
+P0: I -- (PrRd/BusRd) --> S
+
+Reakcije drugih procesora:
+P1: M -- (BusRd/Transfer) --> O
+
+17)
+Nakon koraka 10, operativna memorija će biti ažurirana kada procesor P1 uradi Flush bloka A2 jer je u njegovom kešu blok bio u 
+stanju O, pa je taj procesor zadužen da ažurira operativnu memoriju i prosledi blok onom procesoru koji ga je tražio, a to je ovde
+procesor P3. Međutim, onda će procesor P3 samo lokalno u svom kešu upisati u blok A2, bez ažuriranja operativne memorije, tako
+da na kraju posle koraka 10 operativna memorija neće imati ažuran blok A2, već samo keš procesora P3 jer je on postao sada
+njegov vlasnik.
+
+Akcija procesora P3:
+P3: I -- (PrWr/BusRdX) --> M
+
+Reakcije drugih procesora:
+P0: S -- (BusRdX/--) --> I
+P1: O -- (BusRdX/Flush) --> I
+=========================================================================================================================
+Updating protocols
+=========================================================================================================================
+Dragon
+----------
+18)
+Nakon koraka 3, blok A0 u procesoru P1 će biti u stanju Sm, u procesoru P0 prelazi iz stanja Sm u stanje Sc, dok u procesoru
+P2 ostaje u stanju Sc kao što je i bio. Na Write-Miss procesora P1 reaguje procesor P0 prvo tako što će dostaviti procesoru
+P1 blok A0 preko magistrale, a zatim će procesori P0 i P2 ažurirati kod sebe blok A0 podatkom koji im prosledi procesor P1 isto 
+preko magistrale. Pre koraka 3, vrednost bloka A0 kod procesora P0 i P2 je 1, dok je nakon koraka 3 vrednost ovog bloka 2 u 
+procesorima P0, P1 i P2.
+
+Akcija procesora P1:
+P1: * -- (PrWrMiss/BusRd(S); BusUpd) --> Sm
+
+Reakcije drugih procesora:
+P0: Sm -- (BusRd/Transfer) --> Sm
+P0: Sm -- (BusUpd/Update) --> Sc
+P2: Sc -- (BusRd/--) --> Sc
+P2: Sc -- (BusUpd/Update) --> Sc
+
+19)
+Nakon koraka 3 se ne ažurira operativna memorija. Kada procesor P1 upiše u blok A0 u koraku 3, kopije bloka A0 u procesorima P0 
+i P2 će biti ažurirane tako da će svi imati ažuran blok i to sve bez pristupa operativnoj memoriji. Kod poništavajućih protokola bi
+prvo procesor P0 uradio Flush čime bi ažurirao operativnu memoriju, a zatim bi blok A0 i kod procesora P0 i kod procesora P2
+prešao u nevalidno stanje, pa bi samo procesor P1 imao ažuran blok u čitavom sistemu. U ovoj situaciji vidimo suštinsku razliku
+između poništavajućih i ažurirajućih protokola - kod ažurirajućih protokola se pri svakom upisu u neki blok ažuriraju sve postojeće
+kopije tog bloka (ukoliko takve postoje) u svim procesorima tako da je on svuda uvek ažuran, što je upravo razlog zašto kod ovih 
+protokola ne postoji nevalidno stanje bloka (stanje I) kao kod poništavajućih protokola. Kod poništavajućih protokola bi se 
+postojeće kopije bloka u koji je upisano poništile (prešle bi u stanje I).
+
+20)
+Nakon koraka 5, blok A2 će u kešu procesora P1 biti u stanju M zato što je procesor P1 zatražio ovaj blok za upis i zato što
+nijedan od drugih procesora u svojim keševima nema kopiju ovog bloka (to je razlog što će biti u stanju M, a ne u stanju Sm). 
+
+Na osnovu posebne linije na magistrali (S) se zna da li postoji bar jedan procesor koji već ima dati blok u svom kešu, pa se na
+osnovu vrednosti na toj liniji odlučuje da li će se pri akciji PrWrMiss (promašaj pri upisu) preći u stanje M (ukoliko je na liniji S 
+vrednost 0) ili u stanje Sm (ukoliko je na liniji S vrednost 1).
+
+Upis procesora P1 u blok A2 će izazvati da se taj blok prvo učita u njegov keš, što znači da će on zameniti blok A0 koji se
+prethodno nalazio u kešu. Pošto je blok A0 bio u stanju Sm, što je stanje sa semantikom vlasništva, procesor P1 će uraditi Flush
+pri ovoj zameni kako se ne bi trajno izgubila ažurna vrednost bloka A0 (to bi potencijalno moglo da se dogodi kada bi došlo do
+zamene bloka A0 u svim ostalim keševima koji su u Sc stanju, a da nije pre toga upisan ažuran blok u operativnu memoriju).
+
+Akcija procesora P1:
+P1: * -- (PrWrMiss/BusRd(not S)) --> M
+
+Reakcije drugih procesora:
+Nema
+
+21)
+Nakon čitanja bloka A2 od strane procesora P1 u koraku 6, ovaj blok će ostati u stanju M zato što je u pitanju Read-Hit (pogodak
+pri čitanju) i to nikada nema nikakvih posledica po keš koherenciju.
+=========================================================================================================================
+Firefly
+---------
+22)
+Blok A0 će u procesorima P0, P1 i P2 biti u stanju Sd (shared, not dirty) nakon koraka 3. Ovo stanje govori da više od jednog
+procesora ima u svom kešu kopiju bloka, pri čemu je operativna memorija ažurna. Ekvivalent ovom stanju u Dragon protokolu je
+Sc (shared, clean).
+
+Napomena: BusUpd je kod Dragon protokola ažurirao samo keševe procesora, dok kod Firefly protokola dodatno ažurira i
+operativnu memoriju.
+
+Akcija procesora P1:
+P1: * -- (PrWrMiss/BusRd(S); BusUpd) --> Sd
+
+Reakcije drugih procesora (pretpostavka: moguće je da identičan podatak više procesa stavi na magistralu istovremeno, pa tako
+procesori P0 i P2 mogu da odreaguju istovremeno transferom u ovoj situaciji):
+P0: BusRd/Transfer
+P0: BusUpd/Update
+P2: BusRd/Transfer
+P2: BusUpd/Update
+
+23)
+U koraku 5 se ne ažurira operativna memorija zato što nijedan drugi procesor u svom kešu nema blok A2, pa se neće generisati
+BusUpd signal jer nema ko da ažurira svoju kopiju bloka - samim tim neće biti ažurirana ni operativna memorija jer kod Firefly
+protokola upravo BusUpd signal izaziva i ažuriranje operativne memorije.
+
+Akcija procesora P1:
+P1: * -- (PrWrMiss/BusRd(not S)) --> sD
+
+Reakcije drugih procesora:
+Nema
+
+24)
+U koraku 8 procesor P0 traži blok A2 za čitanje, pri čemu promašuje u svom kešu i zato će mu procesor P1 dostaviti ovaj blok
+prilikom Flush operacije direktno preko magistrale.
+
+Akcija procesora P0:
+P0: * -- (PrRdMiss/BusRd(S)) --> Sd
+
+Reakcije drugih procesora:
+P1: sD -- (BusRd/Flush) --> Sd
+
+25)
+Nakon koraka 10, operativna memorija je ažurna što se tiče blokova A0 i A2. Blok A2 je u stanju Sd u keševima svih procesora
+kod kojih se on nalazi.
